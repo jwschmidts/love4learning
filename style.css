@@ -1,0 +1,23 @@
+body {
+}
+
+.submitButton {
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.padding {
+	padding: 20px;
+}
+
+.formInput{
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	text-align: left !important;
+}
