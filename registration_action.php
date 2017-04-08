@@ -3,8 +3,6 @@
 include_once "sql.php";
 $variables = $_GET;
 
-
-
 $parentFirstName1 = sql_safe($variables['ParentFirstName1']);
 $parentLastName1  = sql_safe($variables['ParentLastName1']);
 $parentFirstName2 = sql_safe($variables['ParentFirstName2']);
@@ -46,9 +44,6 @@ $eCity            = sql_safe($variables['EmergencyCity']);
 $eState           = sql_safe($variables['EmergencyState']);
 $ezip             = (int)$variables['EmergencyZip'];
 $relationship     = sql_safe($variables['EmergencyRelationship']);
-
-
-//sql_query("call InsertRegisterSP('john1','doe', 'jane', 'doe', 'jandj@gmail.com', '8018888888', '1111111111' ,'2222222222', 1, '112 n main', 'logan', 'utah', '84321', 'sports', 'john jr', 'doe', 'jr', 2017-03-2014, 2017, 1, 1, 'alergies', 1,3,1,1,1,1,1,1,1,1,1,1,'jj','mo',5555555555,'100 center','logan','utah',84321,'Aunt')");
 
 $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentFirstName2',
       '$parentLastName2', '$email',
