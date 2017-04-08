@@ -37,7 +37,17 @@ function sql_query($query)
  */
 function sql_safe($str, $decode = SQL_SAFE_DECODE)
 {
-	$conn = _sql_open('ro_sql');
+  $servername = "mysql.love4learningpreschool.com";
+  $username = "love4learning";
+  $password = "managedbythebarcodebandits";
+  $dbname = "love4learning_student";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
 
 	if ($decode)
 	{
