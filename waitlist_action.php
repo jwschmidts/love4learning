@@ -2,8 +2,6 @@
 
 include_once "sql.php";
 $variables = $_GET;
-echo "<pre>";
-print_r($variables);
 
 $pName = sql_safe($variables['ParentsName']);
 $email = sql_safe($variables['ParentsEmail']);
@@ -16,4 +14,5 @@ $saq = "insert into Waitlist (ParentName, ParentEmail, StudentName, Age, YearsDe
         values('$pName', '$email', '$sName', $sAge, $years, $class)";
 sql_query($saq);
 
+echo "<script>window.location.href='/success/';</script>";
 ?>

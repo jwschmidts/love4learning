@@ -59,6 +59,5 @@ $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentF
       '$eAddress', '$eCity', '$eState', $ezip, '$relationship')";
 sql_query($saq);
 
-echo "<pre>";
-print_r($variables);
+echo "<script>window.location.href='/success?reg=success';</script>";
 ?>
