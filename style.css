@@ -20,4 +20,10 @@ body {
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 	text-align: left !important;
+  border-radius: 5px;
+}
+
+.loginInputMatch {
+	padding: 12px 20px;
+	margin: 8px 0;
 }
