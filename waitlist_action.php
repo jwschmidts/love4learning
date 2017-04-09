@@ -6,8 +6,8 @@ $variables = $_GET;
 $pName = sql_safe($variables['ParentsName']);
 $email = sql_safe($variables['ParentsEmail']);
 $sName = sql_safe($variables['StudentsName']);
-$sAge  = (int)$variables['StudentAge'];
-$years = (int)$variables['YearsToAttend'];
+$sAge  = preg_replace("/[^0-9]/", "", $variables['StudentAge']);
+$years = preg_replace("/[^0-9]/", "", $variables['YearsToAttend']);
 $class = $variables['ClassType'] == 'ThreeDay' ? 1 : 0;
 
 $saq = "insert into Waitlist (ParentName, ParentEmail, StudentName, Age, YearsDesired, 3DaySchool)
