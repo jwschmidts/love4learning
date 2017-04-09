@@ -3,6 +3,7 @@
 include_once "sql.php";
 $variables = $_GET;
 
+$class = $variables['Code'];
 $bday   = $variables['BDay'];
 $bmonth = $variables['BMonth'];
 $byear  = $variables['BYear'];

@@ -3,6 +3,7 @@ $var = $_GET;
 ?>
 <h1>Student Registration Form</h1>
 <form action="/l4l/registration_action.php" method="Get">
+Registration Code: <input name="Code" type="text" required />
 <h2>Student Information</h2>
 First name:
 <input name="fname" type="text" value="<?php echo $var['fname']; ?>" required/>
