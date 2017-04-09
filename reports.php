@@ -2,9 +2,10 @@
 session_start();
 $login = 'no';
 
-if ($_SESSION['timeout'] + 30 * 60 < time())
+if ($_SESSION['timeout'] + 1 * 10 < time())
 {
-  echo 'timeout <br>';
+  if (isset($_SESSION['timeout']))
+    session_destroy();
   $login = 'yes';
 }
 
@@ -22,7 +23,8 @@ if (($user == "l4l") && ($pass == "love4learning" ))
 
 if (!isset($_SESSION['user']))
 {
-  echo 'user <br>';
+  if (isset($_SESSION['timeout']))
+    session_destroy();
   $login = 'yes';
 }
 
