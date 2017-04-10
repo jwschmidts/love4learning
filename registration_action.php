@@ -3,7 +3,24 @@
 include_once "sql.php";
 $variables = $_GET;
 
-$class = $variables['Code'];
+$conn = sql_open();
+
+// Check to see if correct class code was entered
+$class  = $variables['Code'];
+$saq = "select * from Class where RegistrationCode='$class'";
+$rq = $conn->query($saq);
+$a = sql_array($rq);
+if (isset($a['ClassID']))
+  $classID = $a['ClassID'];
+else
+{
+  $conn->close();
+  $variables['Code'] = 'e1';
+  $params = http_build_query($variables);
+  echo "<script>window.location.href='/registration?$params';</script>";
+}
+
+
 $bday   = $variables['BDay'];
 $bmonth = $variables['BMonth'];
 $byear  = $variables['BYear'];
@@ -24,7 +41,7 @@ $checkEmail       = $variables['CheckEmail'] == 'Yes' ? 1 : 0;
 $address          = sql_safe($variables['Address']);
 $city             = sql_safe($variables['City']);
 $state            = sql_safe($variables['State']);
-$zip              = preg_replace("/[^0-9]/", "", variables['Zip']);
+$zip              = preg_replace("/[^0-9]/", "", $variables['Zip']);
 $hobbies          = sql_safe($variables['Hobbies']);
 $fname            = sql_safe($variables['fname']);
 $lname            = sql_safe($variables['lname']);
@@ -59,12 +76,11 @@ $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentF
       '$parentLastName2', '$email',
       $phone, $wPhone ,$cPhone, $checkEmail, '$address', '$city', '$state', '$zip', '$hobbies',
       '$fname', '$lname', '$nickName', '$dob', $schoolYear, $gender, $dominantHand,
-      '$additionalInfo', '$physical', $lengthInSchool, $sessionType, 1, $aware, $fieldTrip, $water,
+      '$additionalInfo', '$physical', $lengthInSchool, $sessionType, $classID, $aware, $fieldTrip, $water,
       $onSite, $offSite, $medicine, $pottyTrained, '$signedDate', '$signedBy', '$eFirst', '$eLast', $ePhone,
       '$eAddress', '$eCity', '$eState', $ezip, '$relationship')";
-$conn = sql_open();
 $rq = $conn->query($saq);
-$rq->close();
+$conn->close();
 
 echo "<script>window.location.href='/success?reg=success';</script>";
 ?>

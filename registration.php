@@ -1,7 +1,15 @@
 <?php
 $var = $_GET;
+$err = '';
+if ($var['Code'] == 'e1')
+{
+  $err = "<div style='color: #D8000C; background-color: #FFBABA; boarder-radius: 5px;'>
+             &nbsp; &nbsp; Invalid registration code entered, please try again.
+          </div>";
+ }
 ?>
 <h1>Student Registration Form</h1>
+<?php echo $err; ?>
 <form action="/l4l/registration_action.php" method="Get">
 Registration Code: <input name="Code" type="text" required />
 <h2>Student Information</h2>
