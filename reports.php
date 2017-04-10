@@ -229,21 +229,59 @@ if ($variables['report'] == 'CreateClass')
 else if ($variables['report'] == 'DisplayClasses')
 {
 ?>
-  <div class='row'>
-    <div class='col-sm-3'></div>
-    <div class='col-sm-12 text-center'>
-      <h2>Display Classes</h2>
+<div class='container'>
+  <div class='container-fluid'>
+    <div class='row'>
+      <div class='col-sm-3'></div>
+      <div class='col-sm-12 text-center'>
+        <h2>Display Classes</h2>
+      </div>
     </div>
-  </div>
-
-  <div class='row'>
-    <div class='col-sm-3'></div>
-    <div class='col-sm-6'>
-      Display a Class:
+    <div class='row'>
+      <div class='col-sm-3'>
+        Class Name:
+      </div>
+      <div class='col-sm-3'>
+        Number of Possible Students:
+      </div>
+      <div class='col-sm-3'>
+        # Students Enrolled:
+      </div>
+      <div class='col-sm-3'>
+        Registration Code:
+      </div>
     </div>
-    <div class='col-sm-3'></div>
-  </div>
 <?php
+
+  $ssq = 'SELECT Class.ClassID, ClassName, ClassSize, RegistrationCode, COUNT(Students.ClassID) as CountStudents FROM Class JOIN Students on Class.ClassID=Students.ClassID GROUP BY Students.ClassID';
+  $rq = $conn->query($ssq);
+  while ($rs = sql_assoc($rq))
+  {
+    //print_r($rs);
+    //echo $rs['ClassName']. " class name<br>";
+    //echo $rs['ClassSize']. " size<br>";
+    //echo $rs['CountStudents']. " count<br>";
+    //echo $rs['RegistrationCode']. " code<br>";
+    ?>
+    <div class='row'>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['ClassName']; ?>
+      </div>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['ClassSize']; ?>
+      </div>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['CountStudents']; ?>
+      </div>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['RegistrationCode']; ?>
+      </div>
+    </div>
+    <?php
+  }
+  echo "</div>\n</div>";
+  exit;
+
 }
 
 $conn->close();
