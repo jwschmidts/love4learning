@@ -140,8 +140,9 @@ if ($variables['report'] == 'CreateClass')
   {
     $className   = sql_safe($variables['ClassName']);
     $numStudents = sql_safe($variables['NumberStudents']);
-    $saq = "insert into Class (ClassName, ClassSize, TeacherID)
-            values ('$className', '$numStudents', 1)";
+    $regCode     = sql_safe($variables['RegistrationCode']);
+    $saq = "insert into Class (ClassName, ClassSize, RegistrationCode, TeacherID)
+            values ('$className', '$numStudents', '$regCode', 1)";
     $rq = $conn->query($saq);
 
     printf ("New Record has id %d.\n", $conn->insert_id);
@@ -179,6 +180,15 @@ if ($variables['report'] == 'CreateClass')
         </div>
         <div class='col-sm-6'>
           <input type="text" name="NumberStudents" class="formInput" required>
+        </div>
+        <div class='col-sm-3'></div>
+      </div>
+      <div class='row'>
+        <div class='col-sm-3 text-right loginInputMatch'>
+          Registration Code:
+        </div>
+        <div class='col-sm-6'>
+          <input type="text" name="RegistrationCode" class="formInput" required>
         </div>
         <div class='col-sm-3'></div>
       </div>
