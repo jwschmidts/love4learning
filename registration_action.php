@@ -7,8 +7,8 @@ $conn = sql_open();
 
 // Check to see if correct class code was entered
 $class  = $variables['Code'];
-$saq = "select * from Class where RegistrationCode='$class'";
-$rq = $conn->query($saq);
+$ssq = "select * from Class where RegistrationCode='$class'";
+$rq = $conn->query($ssq);
 $a = sql_array($rq);
 if (isset($a['ClassID']))
   $classID = $a['ClassID'];

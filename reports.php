@@ -106,7 +106,7 @@ $conn = sql_open();
 ?>
 <div class='container'>
   <div class='container-fluid'>
-    <div class='row'>
+    <div class='row' style="padding-bottom: 15px;">
       <div class='col-sm-3 text-right loginInputMatch'>
         <label class=''>Select an Action:</label>
       </div>
@@ -115,7 +115,7 @@ $conn = sql_open();
           <select name="report" class='formInput'>
             <option selected disabled>Select a Report</option>
             <option value='CreateClass'>Create New Class</option>
-            <option value='DisplayClass'>Display a Class</option>
+            <option value='DisplayClasses'>Display Classes</option>
           </select>
           <div class='row'>
             <div class='col-sm-3'></div>
@@ -141,16 +141,37 @@ if ($variables['report'] == 'CreateClass')
     $className   = sql_safe($variables['ClassName']);
     $numStudents = sql_safe($variables['NumberStudents']);
     $regCode     = sql_safe($variables['RegistrationCode']);
-    $saq = "insert into Class (ClassName, ClassSize, RegistrationCode, TeacherID)
-            values ('$className', '$numStudents', '$regCode', 1)";
-    $rq = $conn->query($saq);
+    $ssq = "select * from Class where RegistrationCode='$regCode'";
+    $rq = $conn->query($ssq);
+    $a = sql_array($rq);
+    if (isset($a['ClassID']))
+      {
+        echo "
+        <div class='row'>
+          <div class='col-sm-3'>
+          </div>
+          <div class='col-sm-6 alert alert-danger'>
+            <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;The registration code <b>". htmlspecialchars($regCode). "</b> is already in use. Please select another.</b>
+          </div>
+          <div class='col-sm-3'></div>
+        </div>";
+      }
+    else
+    {
+      $saq = "insert into Class (ClassName, ClassSize, RegistrationCode, TeacherID)
+              values ('$className', '$numStudents', '$regCode', 1)";
+      $rq = $conn->query($saq);
 
-    printf ("New Record has id %d.\n", $conn->insert_id);
-
-    echo $saq. '<br>';
-    echo '<pre>';
-    print_r($variables);
-    echo '</pre>';
+      echo "
+      <div class='row'>
+        <div class='col-sm-3'>
+        </div>
+        <div class='col-sm-6 alert alert-success'>
+          <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;A new class has been created. The registration code is <b>". htmlspecialchars($regCode). "</b>
+        </div>
+        <div class='col-sm-3'></div>
+      </div>";
+    }
   }
   else
   {
@@ -159,7 +180,7 @@ if ($variables['report'] == 'CreateClass')
   <div class='container-fluid'>
     <form action='reports.php'>
       <input type="hidden" name="report" value="CreateClass">
-      <div class='row' style="padding-top: 20px;">
+      <div class='row'>
         <div class='col-sm-3'></div>
         <div class='col-sm-12 text-center'>
           <h2>Create a New Class</h2>
@@ -205,9 +226,16 @@ if ($variables['report'] == 'CreateClass')
 <?php
   }
 }
-else if ($variables['report'] == 'DisplayClass')
+else if ($variables['report'] == 'DisplayClasses')
 {
 ?>
+  <div class='row'>
+    <div class='col-sm-3'></div>
+    <div class='col-sm-12 text-center'>
+      <h2>Display Classes</h2>
+    </div>
+  </div>
+
   <div class='row'>
     <div class='col-sm-3'></div>
     <div class='col-sm-6'>
