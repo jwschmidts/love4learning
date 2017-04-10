@@ -114,6 +114,8 @@ $conn = sql_open();
         <form action='reports.php'>
           <select name="report" class='formInput'>
             <option selected disabled>Select a Report</option>
+            <option value='Waitlist2Day'>View 2 Day Wait List</option>
+            <option value='Waitlist3Day'>View 3 Day Wait List</option>
             <option value='CreateClass'>Create New Class</option>
             <option value='DisplayClasses'>Display Classes</option>
           </select>
@@ -134,7 +136,127 @@ $conn = sql_open();
 <?php
 $variables = $_GET;
 
-if ($variables['report'] == 'CreateClass')
+if ($variables['report'] == 'Waitlist2Day')
+{
+?>
+  <div class='container'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-sm-12 text-center'>
+          <h2>Wait List for 2 Days</h2>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-sm-3'>
+          Parent Name:
+        </div>
+        <div class='col-sm-3'>
+          Parent Email:
+        </div>
+        <div class='col-sm-3'>
+          Student Name:
+        </div>
+        <div class='col-sm-1'>
+          Student Age:
+        </div>
+        <div class='col-sm-1'>
+          Years Desired:
+        </div>
+        <div class='col-sm-1'></div>
+      </div>
+<?php
+
+  $ssq = "select * from Waitlist where 3DaySchool=0";
+  $rq = $conn->query($ssq);
+  while ($rs = sql_assoc($rq))
+  {
+  ?>
+  <div class='row'>
+    <div class='col-sm-3 well'>
+      <?php echo $rs['ParentName']; ?>
+    </div>
+    <div class='col-sm-3 well'>
+      <?php echo $rs['ParentEmail']; ?>
+    </div>
+    <div class='col-sm-3 well'>
+      <?php echo $rs['StudentName']; ?>
+    </div>
+    <div class='col-sm-1 well'>
+      <?php echo $rs['Age']; ?>
+    </div>
+    <div class='col-sm-1 well'>
+      <?php echo $rs['YearsDesired']; ?>
+    </div>
+    <div class='col-sm-1'></div>
+  </div>
+  <?php
+  }
+?>
+  </div>
+</div>
+<?php
+}
+else if ($variables['report'] == 'Waitlist3Day')
+{
+  ?>
+    <div class='container'>
+      <div class='container-fluid'>
+        <div class='row'>
+          <div class='col-sm-12 text-center'>
+            <h2>Wait List for 3 Days</h2>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-3'>
+            Parent Name:
+          </div>
+          <div class='col-sm-3'>
+            Parent Email:
+          </div>
+          <div class='col-sm-3'>
+            Student Name:
+          </div>
+          <div class='col-sm-1'>
+            Student Age:
+          </div>
+          <div class='col-sm-1'>
+            Years Desired:
+          </div>
+          <div class='col-sm-1'></div>
+        </div>
+  <?php
+
+    $ssq = "select * from Waitlist where 3DaySchool=1";
+    $rq = $conn->query($ssq);
+    while ($rs = sql_assoc($rq))
+    {
+    ?>
+    <div class='row'>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['ParentName']; ?>
+      </div>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['ParentEmail']; ?>
+      </div>
+      <div class='col-sm-3 well'>
+        <?php echo $rs['StudentName']; ?>
+      </div>
+      <div class='col-sm-1 well'>
+        <?php echo $rs['Age']; ?>
+      </div>
+      <div class='col-sm-1 well'>
+        <?php echo $rs['YearsDesired']; ?>
+      </div>
+      <div class='col-sm-1'></div>
+    </div>
+    <?php
+    }
+  ?>
+    </div>
+  </div>
+  <?php
+}
+else if ($variables['report'] == 'CreateClass')
 {
   if ($variables['form_submit'] == "Create Class")
   {
@@ -181,7 +303,6 @@ if ($variables['report'] == 'CreateClass')
     <form action='reports.php'>
       <input type="hidden" name="report" value="CreateClass">
       <div class='row'>
-        <div class='col-sm-3'></div>
         <div class='col-sm-12 text-center'>
           <h2>Create a New Class</h2>
         </div>
@@ -232,7 +353,6 @@ else if ($variables['report'] == 'DisplayClasses')
 <div class='container'>
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-sm-3'></div>
       <div class='col-sm-12 text-center'>
         <h2>Display Classes</h2>
       </div>
@@ -257,11 +377,6 @@ else if ($variables['report'] == 'DisplayClasses')
   $rq = $conn->query($ssq);
   while ($rs = sql_assoc($rq))
   {
-    //print_r($rs);
-    //echo $rs['ClassName']. " class name<br>";
-    //echo $rs['ClassSize']. " size<br>";
-    //echo $rs['CountStudents']. " count<br>";
-    //echo $rs['RegistrationCode']. " code<br>";
     ?>
     <div class='row'>
       <div class='col-sm-3 well'>

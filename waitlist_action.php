@@ -14,7 +14,7 @@ $saq = "insert into Waitlist (ParentName, ParentEmail, StudentName, Age, YearsDe
         values('$pName', '$email', '$sName', $sAge, $years, $class)";
 $conn = sql_open();
 $rq = $conn->query($saq);
-$rq->close();
+$conn->close();
 
 echo "<script>window.location.href='/success/';</script>";
 ?>
