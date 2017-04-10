@@ -12,7 +12,9 @@ $class = $variables['ClassType'] == 'ThreeDay' ? 1 : 0;
 
 $saq = "insert into Waitlist (ParentName, ParentEmail, StudentName, Age, YearsDesired, 3DaySchool)
         values('$pName', '$email', '$sName', $sAge, $years, $class)";
-sql_query($saq);
+$conn = sql_open();
+$rq = $conn->query($saq);
+$rq->close();
 
 echo "<script>window.location.href='/success/';</script>";
 ?>

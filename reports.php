@@ -2,7 +2,7 @@
 session_start();
 $login = 'no';
 
-if ($_SESSION['timeout'] + 1 * 10 < time())
+if ($_SESSION['timeout'] + 60 * 60 < time())
 {
   if (isset($_SESSION['timeout']))
     session_destroy();
@@ -78,14 +78,14 @@ if ($login == 'yes')
               Password:
             </div>
             <div class='col-sm-3'>
-              <input type="text" name="pass" class="formInput" required>
+              <input type="password" name="pass" class="formInput" required>
             </div>
             <div class='col-sm-3'></div>
           </div>
           <div class='row'>
             <div class='col-sm-4'></div>
             <div class='col-sm-3'>
-              <input type="submit" name="submit" value="Login" class="btn btn-success">
+              <input type="submit" value="Login" class="btn btn-success" name='form_submit'>
             </div>
             <div class='col-sm-5'></div>
           </div>
@@ -100,6 +100,8 @@ else
 {
 
 include_once "sql.php";
+$conn = sql_open();
+
 
 ?>
 <div class='container'>
@@ -113,6 +115,7 @@ include_once "sql.php";
           <select name="report" class='formInput'>
             <option selected disabled>Select a Report</option>
             <option value='CreateClass'>Create New Class</option>
+            <option value='DisplayClass'>Display a Class</option>
           </select>
           <div class='row'>
             <div class='col-sm-3'></div>
@@ -133,17 +136,79 @@ $variables = $_GET;
 
 if ($variables['report'] == 'CreateClass')
 {
+  if ($variables['form_submit'] == "Create Class")
+  {
+    $className   = sql_safe($variables['ClassName']);
+    $numStudents = sql_safe($variables['NumberStudents']);
+    $saq = "insert into Class (ClassName, ClassSize, TeacherID)
+            values ('$className', '$numStudents', 1)";
+    $rq = $conn->query($saq);
+
+    printf ("New Record has id %d.\n", $conn->insert_id);
+
+    echo $saq. '<br>';
+    echo '<pre>';
+    print_r($variables);
+    echo '</pre>';
+  }
+  else
+  {
+?>
+<div class='container'>
+  <div class='container-fluid'>
+    <form action='reports.php'>
+      <input type="hidden" name="report" value="CreateClass">
+      <div class='row' style="padding-top: 20px;">
+        <div class='col-sm-3'></div>
+        <div class='col-sm-12 text-center'>
+          <h2>Create a New Class</h2>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-sm-3 text-right loginInputMatch'>
+          Class Name:
+        </div>
+        <div class='col-sm-6'>
+          <input type="text" name="ClassName" class="formInput" required>
+        </div>
+        <div class='col-sm-3'></div>
+      </div>
+      <div class='row'>
+        <div class='col-sm-3 text-right loginInputMatch'>
+          Number of Students:
+        </div>
+        <div class='col-sm-6'>
+          <input type="text" name="NumberStudents" class="formInput" required>
+        </div>
+        <div class='col-sm-3'></div>
+      </div>
+      <div class='row'>
+        <div class='col-sm-3'></div>
+        <div class='col-sm-9'>
+          <input type="submit" class="btn btn-success" value="Create Class" name='form_submit'>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<?php
+  }
+}
+else if ($variables['report'] == 'DisplayClass')
+{
 ?>
   <div class='row'>
     <div class='col-sm-3'></div>
     <div class='col-sm-6'>
-      Create a New Class:
+      Display a Class:
     </div>
     <div class='col-sm-3'></div>
   </div>
 <?php
 }
 
+$conn->close();
 ?>
 </body>
 </html>

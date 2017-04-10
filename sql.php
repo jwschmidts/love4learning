@@ -1,10 +1,5 @@
 <?php
-/**
- * Open an sql connection and submit the query
- * @param  string   $query
- * @return resource $rq
- */
-function sql_query($query)
+function sql_open()
 {
   $servername = "mysql.love4learningpreschool.com";
   $username = "love4learning";
@@ -14,14 +9,11 @@ function sql_query($query)
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname);
   // Check connection
-  if ($conn->connect_error) {
+  if ($conn->connect_error)
+  {
       die("Connection failed: " . $conn->connect_error);
   }
-
-  $rq = $conn->query($query);
-  $conn->close();
-
-  return $rq;
+  return $conn;
 }
 
 /**

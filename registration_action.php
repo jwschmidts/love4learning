@@ -62,7 +62,9 @@ $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentF
       '$additionalInfo', '$physical', $lengthInSchool, $sessionType, 1, $aware, $fieldTrip, $water,
       $onSite, $offSite, $medicine, $pottyTrained, '$signedDate', '$signedBy', '$eFirst', '$eLast', $ePhone,
       '$eAddress', '$eCity', '$eState', $ezip, '$relationship')";
-sql_query($saq);
+$conn = sql_open();
+$rq = $conn->query($saq);
+$rq->close();
 
 echo "<script>window.location.href='/success?reg=success';</script>";
 ?>
