@@ -63,31 +63,31 @@ if ($login == 'yes')
       <div class='container-fluid'>
         <form method="POST" action="reports.php">
           <div class='row'>
-            <div class='col-sm-2'></div>
-            <div class='col-sm-2 loginInputMatch text-right'>
+            <div class='col-xs-2'></div>
+            <div class='col-xs-2 loginInputMatch text-right'>
               Username:
             </div>
-            <div class='col-sm-3'>
+            <div class='col-xs-3'>
               <input type="text" name="user" class="formInput" required>
             </div>
-            <div class='col-sm-3'></div>
+            <div class='col-xs-3'></div>
           </div>
           <div class='row'>
-            <div class='col-sm-2'></div>
-            <div class='col-sm-2 loginInputMatch text-right'>
+            <div class='col-xs-2'></div>
+            <div class='col-xs-2 loginInputMatch text-right'>
               Password:
             </div>
-            <div class='col-sm-3'>
+            <div class='col-xs-3'>
               <input type="password" name="pass" class="formInput" required>
             </div>
-            <div class='col-sm-3'></div>
+            <div class='col-xs-3'></div>
           </div>
           <div class='row'>
-            <div class='col-sm-4'></div>
-            <div class='col-sm-3'>
+            <div class='col-xs-4'></div>
+            <div class='col-xs-3'>
               <input type="submit" value="Login" class="btn btn-success" name='form_submit'>
             </div>
-            <div class='col-sm-5'></div>
+            <div class='col-xs-5'></div>
           </div>
         </form>
       </div>
@@ -107,10 +107,10 @@ $conn = sql_open();
 <div class='container'>
   <div class='container-fluid'>
     <div class='row' style="padding-bottom: 15px;">
-      <div class='col-sm-3 text-right loginInputMatch'>
+      <div class='col-xs-3 text-right loginInputMatch'>
         <label class=''>Select an Action:</label>
       </div>
-      <div class='col-sm-6'>
+      <div class='col-xs-6'>
         <form action='reports.php'>
           <select name="report" class='formInput'>
             <option selected disabled>Select a Report</option>
@@ -120,15 +120,15 @@ $conn = sql_open();
             <option value='DisplayClasses'>Display Classes</option>
           </select>
           <div class='row'>
-            <div class='col-sm-3'></div>
-            <div class='col-sm-4'>
+            <div class='col-xs-3'></div>
+            <div class='col-xs-4'>
               <input type='Submit' class='btn btn-success'>
             </div>
-            <div class='col-sm-5'></div>
+            <div class='col-xs-5'></div>
           </div>
         </form>
       </div>
-      <div class='col-sm-3'></div>
+      <div class='col-xs-3'></div>
     </div>
   </div>
 </div>
@@ -142,27 +142,26 @@ if ($variables['report'] == 'Waitlist2Day')
   <div class='container'>
     <div class='container-fluid'>
       <div class='row'>
-        <div class='col-sm-12 text-center'>
+        <div class='col-xs-12 text-center'>
           <h2>Wait List for 2 Days</h2>
         </div>
       </div>
       <div class='row'>
-        <div class='col-sm-3'>
+        <div class='col-xs-3'>
           Parent Name:
         </div>
-        <div class='col-sm-3'>
+        <div class='col-xs-3'>
           Parent Email:
         </div>
-        <div class='col-sm-3'>
+        <div class='col-xs-3'>
           Student Name:
         </div>
-        <div class='col-sm-1'>
+        <div class='col-xs-1'>
           Student Age:
         </div>
-        <div class='col-sm-1'>
+        <div class='col-xs-2'>
           Years Desired:
         </div>
-        <div class='col-sm-1'></div>
       </div>
 <?php
 
@@ -172,22 +171,21 @@ if ($variables['report'] == 'Waitlist2Day')
   {
   ?>
   <div class='row'>
-    <div class='col-sm-3 well'>
+    <div class='col-xs-3 well'>
       <?php echo $rs['ParentName']; ?>
     </div>
-    <div class='col-sm-3 well'>
+    <div class='col-xs-3 well'>
       <?php echo $rs['ParentEmail']; ?>
     </div>
-    <div class='col-sm-3 well'>
+    <div class='col-xs-3 well'>
       <?php echo $rs['StudentName']; ?>
     </div>
-    <div class='col-sm-1 well'>
+    <div class='col-xs-1 well'>
       <?php echo $rs['Age']; ?>
     </div>
-    <div class='col-sm-1 well'>
+    <div class='col-xs-2 well'>
       <?php echo $rs['YearsDesired']; ?>
     </div>
-    <div class='col-sm-1'></div>
   </div>
   <?php
   }
@@ -202,27 +200,26 @@ else if ($variables['report'] == 'Waitlist3Day')
     <div class='container'>
       <div class='container-fluid'>
         <div class='row'>
-          <div class='col-sm-12 text-center'>
+          <div class='col-xs-12 text-center'>
             <h2>Wait List for 3 Days</h2>
           </div>
         </div>
         <div class='row'>
-          <div class='col-sm-3'>
+          <div class='col-xs-3'>
             Parent Name:
           </div>
-          <div class='col-sm-3'>
+          <div class='col-xs-3'>
             Parent Email:
           </div>
-          <div class='col-sm-3'>
+          <div class='col-xs-3'>
             Student Name:
           </div>
-          <div class='col-sm-1'>
+          <div class='col-xs-1'>
             Student Age:
           </div>
-          <div class='col-sm-1'>
+          <div class='col-xs-2'>
             Years Desired:
           </div>
-          <div class='col-sm-1'></div>
         </div>
   <?php
 
@@ -232,22 +229,21 @@ else if ($variables['report'] == 'Waitlist3Day')
     {
     ?>
     <div class='row'>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['ParentName']; ?>
       </div>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['ParentEmail']; ?>
       </div>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['StudentName']; ?>
       </div>
-      <div class='col-sm-1 well'>
+      <div class='col-xs-1 well'>
         <?php echo $rs['Age']; ?>
       </div>
-      <div class='col-sm-1 well'>
+      <div class='col-xs-2 well'>
         <?php echo $rs['YearsDesired']; ?>
       </div>
-      <div class='col-sm-1'></div>
     </div>
     <?php
     }
@@ -270,12 +266,12 @@ else if ($variables['report'] == 'CreateClass')
       {
         echo "
         <div class='row'>
-          <div class='col-sm-3'>
+          <div class='col-xs-3'>
           </div>
-          <div class='col-sm-6 alert alert-danger'>
+          <div class='col-xs-6 alert alert-danger'>
             <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;The registration code <b>". htmlspecialchars($regCode). "</b> is already in use. Please select another.</b>
           </div>
-          <div class='col-sm-3'></div>
+          <div class='col-xs-3'></div>
         </div>";
       }
     else
@@ -286,12 +282,12 @@ else if ($variables['report'] == 'CreateClass')
 
       echo "
       <div class='row'>
-        <div class='col-sm-3'>
+        <div class='col-xs-3'>
         </div>
-        <div class='col-sm-6 alert alert-success'>
+        <div class='col-xs-6 alert alert-success'>
           <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;A new class has been created. The registration code is <b>". htmlspecialchars($regCode). "</b>
         </div>
-        <div class='col-sm-3'></div>
+        <div class='col-xs-3'></div>
       </div>";
     }
   }
@@ -303,40 +299,40 @@ else if ($variables['report'] == 'CreateClass')
     <form action='reports.php'>
       <input type="hidden" name="report" value="CreateClass">
       <div class='row'>
-        <div class='col-sm-12 text-center'>
+        <div class='col-xs-12 text-center'>
           <h2>Create a New Class</h2>
         </div>
       </div>
       <div class='row'>
-        <div class='col-sm-3 text-right loginInputMatch'>
+        <div class='col-xs-3 text-right loginInputMatch'>
           Class Name:
         </div>
-        <div class='col-sm-6'>
+        <div class='col-xs-6'>
           <input type="text" name="ClassName" class="formInput" required>
         </div>
-        <div class='col-sm-3'></div>
+        <div class='col-xs-3'></div>
       </div>
       <div class='row'>
-        <div class='col-sm-3 text-right loginInputMatch'>
+        <div class='col-xs-3 text-right loginInputMatch'>
           Number of Students:
         </div>
-        <div class='col-sm-6'>
+        <div class='col-xs-6'>
           <input type="text" name="NumberStudents" class="formInput" required>
         </div>
-        <div class='col-sm-3'></div>
+        <div class='col-xs-3'></div>
       </div>
       <div class='row'>
-        <div class='col-sm-3 text-right loginInputMatch'>
+        <div class='col-xs-3 text-right loginInputMatch'>
           Registration Code:
         </div>
-        <div class='col-sm-6'>
+        <div class='col-xs-6'>
           <input type="text" name="RegistrationCode" class="formInput" required>
         </div>
-        <div class='col-sm-3'></div>
+        <div class='col-xs-3'></div>
       </div>
       <div class='row'>
-        <div class='col-sm-3'></div>
-        <div class='col-sm-9'>
+        <div class='col-xs-3'></div>
+        <div class='col-xs-9'>
           <input type="submit" class="btn btn-success" value="Create Class" name='form_submit'>
         </div>
       </div>
@@ -353,21 +349,21 @@ else if ($variables['report'] == 'DisplayClasses')
 <div class='container'>
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-sm-12 text-center'>
+      <div class='col-xs-12 text-center'>
         <h2>Display Classes</h2>
       </div>
     </div>
     <div class='row'>
-      <div class='col-sm-3'>
+      <div class='col-xs-3'>
         Class Name:
       </div>
-      <div class='col-sm-3'>
+      <div class='col-xs-3'>
         Number of Possible Students:
       </div>
-      <div class='col-sm-3'>
+      <div class='col-xs-3'>
         # Students Enrolled:
       </div>
-      <div class='col-sm-3'>
+      <div class='col-xs-3'>
         Registration Code:
       </div>
     </div>
@@ -379,16 +375,16 @@ else if ($variables['report'] == 'DisplayClasses')
   {
     ?>
     <div class='row'>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['ClassName']; ?>
       </div>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['ClassSize']; ?>
       </div>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['CountStudents']; ?>
       </div>
-      <div class='col-sm-3 well'>
+      <div class='col-xs-3 well'>
         <?php echo $rs['RegistrationCode']; ?>
       </div>
     </div>
