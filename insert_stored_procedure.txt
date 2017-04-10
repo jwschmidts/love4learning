@@ -1,0 +1,79 @@
+drop procedure if exists InsertRegisterSP;
+
+delimiter ;;
+
+create procedure InsertRegisterSP
+(
+in PFName             varchar(122),
+in PLName             varchar(122),
+in PFName2            varchar(122),
+in PLName2            varchar(122),
+in PEmail             varchar(122),
+in Phone1             int(11),
+in Phone2             int(11),
+in Phone3             int(11),
+in CheckEmail         tinyint(1),
+in Address            varchar(122),
+in City               varchar(122),
+in State              varchar(122),
+in ZipCode            int(11),
+in Hobbies            text,
+in FirstName          varchar(122),
+in LastName           varchar(122),
+in Nickname           varchar(122),
+in Birthday           date,
+in SchoolYear         int(11),
+in Gender             tinyint(1),
+in DominantHand       tinyint(1),
+in AdditionalInfo     text,
+in PhysicalImparments text,
+in YearsInSchool      tinyint(1),
+in ClassType          tinyint(1),
+in ClassID            int(11),
+in AwareOfPhysical    tinyint(1),
+in FieldTrips         tinyint(1),
+in Water              tinyint(1),
+in OnSitePictures     tinyint(1),
+in OffSitePictures    tinyint(1),
+in Medicine           tinyint(1),
+in PottyTrained       tinyint(1),
+in RegisteredOn       date,
+in SignedBy           varchar(122),
+in CFirstName         varchar(122),
+in CLastName          varchar(122),
+in CPhone             int(11),
+in CAddress           varchar(122),
+in CCity              varchar(122),
+in CState             varchar(122),
+in CZip               int(11),
+in CRelationship      varchar(122)
+)
+begin
+declare ParID int unsigned default 0;
+declare ConID int unsigned default 0;
+declare StuID int unsigned default 0;
+
+insert into Parents (FirstName, LastName, FirstName2, LastName2, Email, Phone1, Phone2, Phone3, CheckEmail, Address, City, State, ZipCode, Hobbies)
+values (PFName, PLName, PFName2, PFName2, PEmail, Phone1, Phone2, Phone3, CheckEmail, Address, City, State, ZipCode, Hobbies);
+
+set ParID = last_insert_id();
+
+insert into Students (FirstName,LastName,Nickname,Birthday,SchoolYear,Gender,DominantHand,AdditionalInfo,PhysicalImparments,YearsInSchool,ClassType,ClassID,ParentID,AwareOfPhysical,FieldTrips,Water,OnSitePictures,OffSitePictures,Medicine,PottyTrained,RegisteredOn,SignedBy)
+values (FirstName,LastName,Nickname,Birthday,SchoolYear,Gender,DominantHand,AdditionalInfo,PhysicalImparments,YearsInSchool,ClassType,ClassID,ParID,AwareOfPhysical,FieldTrips,Water,OnSitePictures,OffSitePictures,Medicine,PottyTrained,RegisteredOn,SignedBy);
+
+set StuID = last_insert_id();
+
+insert into EmergencyContact(FirstName,LastName,Phone,Address,City,State,Zip,Relationship)
+Values (CFirstName, CLastName, CPhone, CAddress, CCity, CState, CZip, CRelationship);
+
+set ConID = last_insert_id();
+
+update Students a,
+(select ContactID
+   from EmergencyContact
+   where ContactID = ConID) b
+set a.ContactId = b.ContactID
+Where a.StudentID = StuID;
+end ;;
+
+call InsertRegisterSP( 'john', 'doe', 'jane', 'doe', 'jandj@gmail.com', 8018888888, 1111111111 , 2222222222, 1, '112 n main', 'logan', 'utah', '84321', 'sports', 'john jr', 'doe', 'jr', 2017-03-2014, 2017, 1, 1, 'alergies', 'broken arm', 2, 3, 1, 1, 1, 1, 1, 1, 1, 1,’2017-12-10’,’joesm’, 'jj', 'mo', 5555555555, '100 center', 'logan', 'utah', 84321, 'Aunt')
