@@ -434,10 +434,11 @@ else if ($variables['Class'] != '')
     $infoDiv = '';
     foreach ($rs as $key => $value)
     {
-      if ($key == 'Gender')
-        $value = $gender;
+      $skip = 'no';
       switch ($key)
       {
+        case 'StudentID':
+                      $skip = 'yes';
         case 'Gender':
                       $value = $gender;
                       break;
@@ -453,7 +454,9 @@ else if ($variables['Class'] != '')
                       $value = $value == '1' ? 'Right' : 'Left';
       }
 
-    $infoDiv .= "<div class='col-xs-6'>
+      if ($skip != 'yes')
+      {
+        $infoDiv .= "<div class='col-xs-6'>
                   <div class='col-xs-6 text-right'>
                     <b>$key:</b>
                   </div>
@@ -461,6 +464,7 @@ else if ($variables['Class'] != '')
                     $value
                   </div>
                 </div>";
+      }
     }
   ?>
     <div class='row' onclick="show_student_info('<?php echo $rs['StudentID']; ?>')" style="cursor: pointer;">
