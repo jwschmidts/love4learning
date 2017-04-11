@@ -448,6 +448,13 @@ else if ($variables['Class'] != '')
                       $key = 'Parent Name';
                       $value = "<a href='reports.php?ParentID=". $rs2['ParentID']. "'>". $rs2['FirstName']. " ". $rs2['LastName']. "</a>";
                       break;
+        case 'ContactID':
+                      $ssq2 = "select FirstName, LastName, ContactID from EmergencyContact where ContactID=$value";
+                      $rq2 = $conn->query($ssq2);
+                      $rs2 = sql_assoc($rq2);
+                      $key = 'Emergency Contact';
+                      $value = "<a href='reports.php?ContactID=". $rs2['ContactID']. "'>". $rs2['FirstName']. " ". $rs2['LastName']. "</a>";
+                      break;
         case 'Gender':
                       $value = $gender;
                       break;
@@ -555,6 +562,59 @@ else if ($variables['ParentID'] != '')
   </div>
 <?php
 }
+else if ($variables['ContactID'] != '')
+{
+  $ssq = "select * from EmergencyContact where ContactID=". $variables['ContactID'];
+  $rq = $conn->query($ssq);
+  $rs = sql_assoc($rq);
+?>
+  <div class='container'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-xs-12 text-center'>
+          <h2>Emergency Contact</h2>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3'>
+          Name:
+        </div>
+        <div class='col-xs-3'>
+          Relationship:
+        </div>
+        <div class='col-xs-3'>
+          Phone Number:
+        </div>
+        <div class='col-xs-3'>
+          Address:
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['FirstName']. ' '. $rs['LastName'];
+          ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php echo $rs['Relationship']; ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['Phone'];
+          ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['Address']. '<br>';
+            echo $rs['City']. ', '. $rs['State']. ' '. $rs['ZipCode'];
+          ?>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php
+}
+
 
 $conn->close();
 ?>
