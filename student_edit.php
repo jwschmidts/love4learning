@@ -2,11 +2,58 @@
 
 $var = $_GET;
 
-echo "<pre>"; print_r($var); echo "</pre>";
+include_once "sql.php";
 
 $year  = date('Y', strtotime($var['Birthday']));
 $month = date('m', strtotime($var['Birthday']));
 $day   = date('d', strtotime($var['Birthday']));
+
+$msg = '';
+
+if ($var['Submit'] == 'Submit')
+{
+  $year  = preg_replace("/[^0-9]/", "", $year);
+  $month = preg_replace("/[^0-9]/", "", $month);
+  $day   = preg_replace("/[^0-9]/", "", $day);
+
+  $dob = strtotime("$day $month $year");
+  $dob = date('Y-m-d', $dob);
+
+  $id       = sql_safe($var['StudentID']);
+  $fname    = sql_safe($var['FirstName']);
+  $lname    = sql_safe($var['LastName']);
+  $nick     = sql_safe($var['Nickname']);
+  $gender   = $var['Gender'] == 'Boy' ? 1 : 0;
+  $dom      = sql_safe($var['DominantHand']);
+  $add      = sql_safe($var['AdditionalInfo']);
+  $physical = sql_safe($var['PhysicalImparments']);
+  $aware    = sql_safe($var['AwareOfPhysical']);
+  $trips    = sql_safe($var['FieldTrips']);
+  $water    = sql_safe($var['Water']);
+  $onSite   = $var['OnSitePictures'] == '' ? 0 : 1;
+  $offSite  = $var['OffSitePictures'] == '' ? 0 : 1;
+  $medicine = sql_safe($var['Medicine']);
+
+  $saq = "UPDATE Students
+          SET FirstName='$fname', LastName='$lname',
+              Nickname='$nick', Gender=$gender,
+              DominantHand=$dom, AdditionalInfo='$add',
+              PhysicalImparments='$physical', AwareOfPhysical=$aware,
+              FieldTrips=$trips, Water=$water,
+              OnSitePictures=$onSite, OffSitePictures=$offSite,
+              Medicine=$medicine
+          WHERE StudentID=$id;";
+  $conn = sql_open();
+  $rq = $conn->query($saq);
+  $conn->close();
+
+  $msg = "<div class='row'><div class='col-sm-2'></div><div class='col-sm-8'>";
+  if ($rq)
+    $msg .= "<div class='alert alert-success'>Student succesfully updated. <a href='reports.php?Class=". $var['ClassID']. "'>Click here</a> to go back to class display</div>";
+  else
+    $msg .= "<div class='alert alert-success'>Something went wrong, please check your changes and try again.</div>";
+  $msg .= "</div><div class='col-sm-2'></div></div>";
+}
 
 ?>
 <html>
@@ -29,8 +76,13 @@ $day   = date('d', strtotime($var['Birthday']));
 <body>
 
 <div class="container">
-  <div class="container-fluid">
-    <form action="/l4l/registration_action.php" method="Get">
+  <div>&nbsp;<br>&nbsp;</div>
+  <div class="container-fluid" style='background-color: lightgrey;'>
+    <h1 class='text-center'>Student Edit</h1>
+    <?php echo $msg; ?>
+    <form action="student_edit.php" method="Get">
+      <input type="hidden" name="StudentID" value="<?php echo $var['StudentID']; ?>" />
+      <input type="hidden" name="ClassID" value="<?php echo $var['ClassID']; ?>" />
       <div class="row">
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>First Name:</label>
@@ -76,7 +128,6 @@ $day   = date('d', strtotime($var['Birthday']));
             </div>
             <div class="col-xs-4">
               <input name="Day" class="dateInput" type="text" maxlength=2 value="<?php echo $day; ?>" required/>
-:
             </div>
           </div>
         </div>
@@ -168,13 +219,13 @@ $day   = date('d', strtotime($var['Birthday']));
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right ">
-              <input name="PhotographOnSite" type="checkbox" value="1" <?php echo $var['PhotographOnSite'] ? 'checked' : ''; ?> />
+              <input name="OnSitePictures" type="checkbox" value="1" <?php echo $var['OnSitePictures'] ? 'checked' : ''; ?> />
             </div>
             <div class="col-xs-3">
               On Site
             </div>
             <div class="col-xs-3 text-left-sm text-right ">
-              <input name="PhotographOnSite" type="checkbox" value="1" <?php echo $var['PhotographOffSite'] ? 'checked' : ''; ?> />
+              <input name="OffSitePictures" type="checkbox" value="1" <?php echo $var['OffSitePictures'] ? 'checked' : ''; ?> />
             </div>
             <div class="col-xs-3">
               Off Site
@@ -201,8 +252,6 @@ $day   = date('d', strtotime($var['Birthday']));
           </div>
         </div>
       </div>
-
-
       <div class="row">
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>Additional Info:</label>
@@ -233,14 +282,10 @@ $day   = date('d', strtotime($var['Birthday']));
           </div>
         </div>
       </div>
-
-
-
-
       <div class="row">
         <div class="col-sm-5"></div>
         <div class="col-sm-2">
-          <input type="submit" value="Submit" class='btn btn-success submitButton'/>
+          <input type="submit" name='Submit' value="Submit" class='btn btn-success submitButton'/>
         </div>
         <div class="col-sm-5"></div>
       </div>
@@ -250,6 +295,3 @@ $day   = date('d', strtotime($var['Birthday']));
 
 </body>
 </html>
-
-
-</form>
