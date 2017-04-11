@@ -438,7 +438,16 @@ else if ($variables['Class'] != '')
       switch ($key)
       {
         case 'StudentID':
+        case 'ClassID':
+        case 'ClassType':
                       $skip = 'yes';
+        case 'ParentID':
+                      $ssq2 = "select FirstName, LastName, ParentID from Parents where ParentID=$value";
+                      $rq2 = $conn->query($ssq2);
+                      $rs2 = sql_assoc($rq2);
+                      $key = 'Parent Name';
+                      $value = "<a href='reports.php?ParentID=". $rs2['ParentID']. "'>". $rs2['FirstName']. " ". $rs2['LastName']. "</a>";
+                      break;
         case 'Gender':
                       $value = $gender;
                       break;
@@ -487,6 +496,61 @@ else if ($variables['Class'] != '')
   <?php
   }
 ?>
+    </div>
+  </div>
+<?php
+}
+else if ($variables['ParentID'] != '')
+{
+  $ssq = "select * from Parents where ParentID=". $variables['ParentID'];
+  $rq = $conn->query($ssq);
+  $rs = sql_assoc($rq);
+?>
+  <div class='container'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-xs-12 text-center'>
+          <h2>Parent Display</h2>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3'>
+          Name(s):
+        </div>
+        <div class='col-xs-3'>
+          Email:
+        </div>
+        <div class='col-xs-3'>
+          Phone Numbers:
+        </div>
+        <div class='col-xs-3'>
+          Address:
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['FirstName']. ' '. $rs['LastName']. '<br>';
+            echo $rs['FirstName2']. ' '. $rs['LastName2'];
+          ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php echo $rs['Email']; ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['Phone1']. '<br>';
+            echo $rs['Phone2']. '(work)<br>';
+            echo $rs['Phone3']. '(cell)';
+          ?>
+        </div>
+        <div class='col-xs-3 well'>
+          <?php
+            echo $rs['Address']. '<br>';
+            echo $rs['City']. ', '. $rs['State']. ' '. $rs['ZipCode'];
+          ?>
+        </div>
+      </div>
     </div>
   </div>
 <?php
