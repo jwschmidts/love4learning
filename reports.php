@@ -45,6 +45,7 @@ if (!isset($_SESSION['user']))
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <link rel='stylesheet' href="style.css">
+ <script src="functions.js"></script>
 </head>
 <body>
 
@@ -376,7 +377,7 @@ else if ($variables['report'] == 'DisplayClasses')
     ?>
     <div class='row'>
       <div class='col-xs-3 well'>
-        <?php echo $rs['ClassName']; ?>
+        <a href='reports.php?Class=<?php echo $rs['ClassID']; ?>'><?php echo $rs['ClassName']; ?></a>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['ClassSize']; ?>
@@ -393,6 +394,98 @@ else if ($variables['report'] == 'DisplayClasses')
   echo "</div>\n</div>";
   exit;
 
+}
+else if ($variables['Class'] != '')
+{
+  $ssq = 'select ClassName from Class where ClassID='. $variables['Class'];
+  $rq = $conn->query($ssq);
+  $rs = sql_assoc($rq);
+?>
+  <div class='container'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-xs-12 text-center'>
+          <h2>Displaying Class: <?php echo $rs['ClassName']; ?></h2>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3'>
+          Student Name:
+        </div>
+        <div class='col-xs-3'>
+          Birthday:
+        </div>
+        <div class='col-xs-3'>
+          Gender:
+        </div>
+        <div class='col-xs-3'>
+          Additional Info:
+        </div>
+      </div>
+<?php
+  $ssq = 'select * from Students where ClassID='. $variables['Class'];
+  $rq = $conn->query($ssq);
+  while ($rs = sql_assoc($rq))
+  {
+    //echo '<pre>'; print_r($rs); echo '</pre>';
+    $name   = $rs['FirstName']. ' '. $rs['LastName'];
+    $gender = $rs['Gender'] == '1' ? 'Boy' : 'Girl';
+
+    $infoDiv = '';
+    foreach ($rs as $key => $value)
+    {
+      if ($key == 'Gender')
+        $value = $gender;
+      switch ($key)
+      {
+        case 'Gender':
+                      $value = $gender;
+                      break;
+        case 'FieldTrips':
+        case 'OnSitePictures':
+        case 'Medicine':
+        case 'AwareOfPhysical':
+        case 'Water':
+        case 'OffSitePictures':
+                      $value = $value ? 'Yes' : 'No' ;
+                      break;
+        case 'DominantHand':
+                      $value = $value == '1' ? 'Right' : 'Left';
+      }
+
+    $infoDiv .= "<div class='col-xs-6'>
+                  <div class='col-xs-6 text-right'>
+                    <b>$key:</b>
+                  </div>
+                  <div class='col-xs-6'>
+                    $value
+                  </div>
+                </div>";
+    }
+  ?>
+    <div class='row' onclick="show_student_info('<?php echo $rs['StudentID']; ?>')" style="cursor: pointer;">
+      <div class='col-xs-3 well'>
+        <?php echo $name; ?>
+      </div>
+      <div class='col-xs-3 well'>
+        <?php echo $rs['Birthday']; ?>
+      </div>
+      <div class='col-xs-3 well'>
+        <?php echo $gender; ?>
+      </div>
+      <div class='col-xs-3 well'>
+        <?php echo $rs['AdditionalInfo']; ?>
+      </div>
+    </div>
+    <div class='row well' style='display: none;' id='<?php echo $rs['StudentID']; ?>'>
+      <?php echo $infoDiv; ?>
+    </div>
+  <?php
+  }
+?>
+    </div>
+  </div>
+<?php
 }
 
 $conn->close();
