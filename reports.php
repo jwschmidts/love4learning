@@ -425,6 +425,8 @@ else if ($variables['Class'] != '')
     $gender = $rs['Gender'] == '1' ? 'Boy' : 'Girl';
 
     $infoDiv = '';
+    $params = http_build_query($rs);
+    $rs['Edit'] = "<a href='student_edit.php?$params';>Edit</a>";
     foreach ($rs as $key => $value)
     {
       $skip = 'no';
@@ -493,6 +495,7 @@ else if ($variables['Class'] != '')
     <div class='row well' style='display: none;' id='<?php echo $rs['StudentID']; ?>'>
       <?php echo $infoDiv; ?>
     </div>
+
   <?php
   }
 ?>
