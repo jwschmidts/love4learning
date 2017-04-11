@@ -23,7 +23,23 @@ body {
   border-radius: 5px;
 }
 
+.dateInput{
+	width: 100%;
+	padding: 3px 10px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	text-align: left !important;
+  border-radius: 5px;
+}
+
 .loginInputMatch {
 	padding: 12px 20px;
 	margin: 8px 0;
+}
+
+@media screen and (max-width: 764px) {
+  .text-left-sm {
+    text-align: left !important;
+  }
 }
