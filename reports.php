@@ -164,9 +164,9 @@ if ($variables['report'] == 'Waitlist2Day')
   while ($rs = sql_assoc($rq))
   {
   ?>
-  <div class='row'>
+  <div class='row' id='contact-<?php echo $rs['WaitlistID']; ?>'>
     <div class='col-xs-3 well'>
-      <?php echo $rs['ParentName']; ?>
+      <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> <?php echo $rs['ParentName']; ?>
     </div>
     <div class='col-xs-3 well'>
       <?php echo $rs['ParentEmail']; ?>
@@ -222,9 +222,9 @@ else if ($variables['report'] == 'Waitlist3Day')
     while ($rs = sql_assoc($rq))
     {
     ?>
-    <div class='row'>
+    <div class='row' id='contact-<?php echo $rs['WaitlistID']; ?>'>
       <div class='col-xs-3 well'>
-        <?php echo $rs['ParentName']; ?>
+        <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> <?php echo $rs['ParentName']; ?>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['ParentEmail']; ?>
