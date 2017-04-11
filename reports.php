@@ -113,7 +113,7 @@ $conn = sql_open();
       </div>
       <form action='reports.php'>
         <div class='col-xs-6'>
-          <select name="report" class='formInput'>
+          <select name="report" class='formInput' onchange='this.form.submit()'>
             <option selected disabled>Select a Report</option>
             <option value='Waitlist2Day'>View 2 Day Wait List</option>
             <option value='Waitlist3Day'>View 3 Day Wait List</option>
@@ -121,9 +121,7 @@ $conn = sql_open();
             <option value='DisplayClasses'>Display Classes</option>
           </select>
         </div>
-        <div class='col-xs-3 loginInputMatch'>
-          <input type='Submit' class='btn btn-success'>
-        </div>
+        <div class='col-xs-3'> </div>
       </form>
     </div>
   </div>
