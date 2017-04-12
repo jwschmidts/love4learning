@@ -258,21 +258,21 @@ else if ($variables['report'] == 'CreateClass')
     $rq = $conn->query($ssq);
     $a = sql_array($rq);
     if (isset($a['ClassID']))
-      {
-        echo "
-        <div class='row'>
-          <div class='col-xs-3'>
-          </div>
-          <div class='col-xs-6 alert alert-danger'>
-            <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;The registration code <b>". htmlspecialchars($regCode). "</b> is already in use. Please select another.</b>
-          </div>
-          <div class='col-xs-3'></div>
-        </div>";
-      }
+    {
+      echo "
+      <div class='row'>
+        <div class='col-xs-3'>
+        </div>
+        <div class='col-xs-6 alert alert-danger'>
+          <span class='glyphicon glyphicon-ok'></span> &nbsp; &nbsp;The registration code <b>". htmlspecialchars($regCode). "</b> is already in use. Please select another.</b>
+        </div>
+        <div class='col-xs-3'></div>
+      </div>";
+    }
     else
     {
-      $saq = "insert into Class (ClassName, ClassSize, RegistrationCode, TeacherID)
-              values ('$className', '$numStudents', '$regCode', 1)";
+      $saq = "insert into Class (ClassName, ClassSize, RegistrationCode)
+              values ('$className', '$numStudents', '$regCode')";
       $rq = $conn->query($saq);
 
       echo "
