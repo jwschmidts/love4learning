@@ -593,6 +593,7 @@ else if ($variables['ContactID'] != '')
       </div>
       <div class='row'>
         <div class='col-xs-3 well'>
+          <a href="emergency_contact_edit.php?ContactID=<?php echo $variables['ContactID']; ?>"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a>
           <?php
             echo $rs['FirstName']. ' '. $rs['LastName'];
           ?>
