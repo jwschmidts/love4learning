@@ -363,14 +363,20 @@ else if ($variables['report'] == 'DisplayClasses')
     </div>
 <?php
 
-  $ssq = 'SELECT Class.ClassID, ClassName, ClassSize, RegistrationCode, COUNT(Students.ClassID) as CountStudents FROM Class JOIN Students on Class.ClassID=Students.ClassID GROUP BY Students.ClassID';
+  $ssq = 'SELECT Class.ClassID, ClassName, ClassSize, RegistrationCode, COUNT(Students.ClassID) as CountStudents
+          FROM Class LEFT JOIN Students on Class.ClassID=Students.ClassID GROUP BY Class.ClassID';
   $rq = $conn->query($ssq);
   while ($rs = sql_assoc($rq))
   {
+    $allow = '';
+    if ($rs['CountStudents'] != 0)
+      $allow = "<span class='glyphicon glyphicon-remove' style='color: lightgrey; cursor: pointer;' data-toggle='tooltip' title='Cannot remove classes that have students in them.'></span>";
+    else
+      $allow = "<span class='glyphicon glyphicon-remove' style='color: #b20000; cursor: pointer;' onclick=\"remove_class('". $rs['ClassID']. "');\"></span>";
     ?>
-    <div class='row'>
+    <div class='row' id='class-<?php echo $rs['ClassID'] ?>'>
       <div class='col-xs-3 well'>
-        <a href='reports.php?Class=<?php echo $rs['ClassID']; ?>'><?php echo $rs['ClassName']; ?></a>
+         <?php echo $allow; ?> <a href='reports.php?Class=<?php echo $rs['ClassID']; ?>'><?php echo $rs['ClassName']; ?></a>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['ClassSize']; ?>

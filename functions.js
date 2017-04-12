@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 function show_student_info(id)
 {
   var div = document.getElementById(id);
