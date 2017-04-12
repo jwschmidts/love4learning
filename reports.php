@@ -478,9 +478,9 @@ else if ($variables['Class'] != '')
       }
     }
   ?>
-    <div class='row' onclick="show_student_info('<?php echo $rs['StudentID']; ?>')" style="cursor: pointer;">
+    <div class='row' onclick="show_student_info('<?php echo $rs['StudentID']; ?>')" style="cursor: pointer;" id='student-<?php echo $rs['StudentID']; ?>'>
       <div class='col-xs-3 well'>
-        <?php echo $name; ?>
+        <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_student('<?php echo $rs['StudentID']; ?>');"></span> <?php echo $name; ?>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['Birthday']; ?>

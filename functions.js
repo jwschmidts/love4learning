@@ -25,3 +25,20 @@ function remove_waitlist(id)
     div.style.display = 'none';
   }
 }
+
+function remove_student(id)
+{
+  if (confirm('Are you sure you want to remove this student? It CANNOT be undone and will remove the students parents and emergency contact information.'))
+  {
+    var div = document.getElementById('student-' + id);
+    $.ajax({  //use ajax to run the check
+              type: "POST",
+              url: "ajax/student_remove.ajax.php",
+              data: { StudentID: id},
+              success: function(result) {
+              },
+              fail: function(result) { console.log('fail'); }
+    });
+    div.style.display = 'none';
+  }
+}
