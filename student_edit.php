@@ -30,7 +30,7 @@ if ($var['Submit'] == 'Submit')
 
   $dob = "$year-$month-$day";
 
-  $msg = "<div class='row'><div class='col-sm-2'></div><div class='col-sm-8'>";
+  $msg .= "<div class='row'><div class='col-sm-2'></div><div class='col-sm-8'>";
   if (checkdate($month, $day, $year))
   {
     $id       = sql_safe($var['StudentID']);
