@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user']))
+{
+  if (isset($_SESSION['timeout']))
+    session_destroy();
+  $login = 'yes';
+  echo "<script>window.location='reports.php';</script>";
+}
+
+
 
 $var = $_GET;
 
