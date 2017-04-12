@@ -166,7 +166,8 @@ if ($variables['report'] == 'Waitlist2Day')
   ?>
   <div class='row' id='contact-<?php echo $rs['WaitlistID']; ?>'>
     <div class='col-xs-3 well'>
-      <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> <?php echo $rs['ParentName']; ?>
+      <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> &nbsp; &nbsp; <a href="waitlist_edit.php?WaitlistID=<?php echo $rs['WaitlistID']; ?>"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a>
+ <?php echo $rs['ParentName']; ?>
     </div>
     <div class='col-xs-3 well'>
       <?php echo $rs['ParentEmail']; ?>
@@ -224,7 +225,7 @@ else if ($variables['report'] == 'Waitlist3Day')
     ?>
     <div class='row' id='contact-<?php echo $rs['WaitlistID']; ?>'>
       <div class='col-xs-3 well'>
-        <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> <?php echo $rs['ParentName']; ?>
+        <span class="glyphicon glyphicon-remove" style="color: #b20000; cursor: pointer;" onclick="remove_waitlist('<?php echo $rs['WaitlistID']; ?>');"></span> &nbsp; &nbsp; <a href="waitlist_edit.php?WaitlistID=<?php echo $rs['WaitlistID']; ?>"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> <?php echo $rs['ParentName']; ?>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['ParentEmail']; ?>
