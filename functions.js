@@ -2,6 +2,9 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+/*
+ * Toggle student information on click of div
+ */
 function show_student_info(id)
 {
   var div = document.getElementById(id);
@@ -13,6 +16,9 @@ function show_student_info(id)
   div.style.display = 'none';
 }
 
+/*
+ * Remove a waitlist name with a given id and hide div
+ */
 function remove_waitlist(id)
 {
   if (confirm('Are you sure you would like to remove this person from the waitlist?'))
@@ -30,6 +36,9 @@ function remove_waitlist(id)
   }
 }
 
+/*
+ * Remove a student with a given id and hide div
+ */
 function remove_student(id)
 {
   if (confirm('Are you sure you want to remove this student? It CANNOT be undone and will remove the students parents and emergency contact information.'))
@@ -47,6 +56,9 @@ function remove_student(id)
   }
 }
 
+/*
+ * Remove a class with a given id and hide div
+ */
 function remove_class(id)
 {
   if (confirm('Are you sure you want to remove this class? This action cannot be undone.'))
