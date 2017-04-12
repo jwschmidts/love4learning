@@ -27,6 +27,15 @@ $byear  = $variables['BYear'];
 
 $dob = strtotime("$bday  $bmonth  $byear");
 $dob = date('Y-m-d', $dob);
+echo $dob. ' - dob<br>';
+$d = date_parse($bmonth);
+if (checkdate($d['month'], $bday, $byear) === false)
+{
+  $conn->close();
+  $variables['Code'] = 'e2';
+  $params = http_build_query($variables);
+  echo "<script>window.location.href='/registration?$params';</script>";
+}
 
 //echo "<pre>"; print_r($variables); exit;
 $parentFirstName1 = sql_safe($variables['ParentFirstName1']);

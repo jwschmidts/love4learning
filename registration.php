@@ -1,12 +1,15 @@
 <?php
 $var = $_GET;
 $err = '';
-if ($var['Code'] == 'e1')
+if ($var['Code'] != '')
 {
-  $err = "<div style='color: #D8000C; background-color: #FFBABA; boarder-radius: 5px;'>
-             &nbsp; &nbsp; Invalid registration code entered, please try again.
-          </div>";
- }
+  $err = "<div style='color: #D8000C; background-color: #FFBABA; boarder-radius: 5px;'>";
+  if ($var['Code'] == 'e1')
+    $err .= "&nbsp; &nbsp; Invalid registration code entered, please try again.";
+  else if ($var['Code'] == 'e2')
+    $err .= "&nbsp; &nbsp; Invalid birthday, please make sure that it is correct and resubmit.";
+  $err .= "</div>";
+}
 ?>
 <h1>Student Registration Form</h1>
 <?php echo $err; ?>
@@ -25,7 +28,7 @@ Name that student goes by:
 School Year:
 <input name="schoolYear" type="text" value="<?php echo $var['schoolYear']; ?>" required/>
 
-Two Day Session<input name="SessionType" type="radio" value="2Day" required/>        Three Day Session<input name="SessionType" type="radio" value="3Day" required/>
+Two Day Session<input name="SessionType" type="radio" value="2Day" <?php echo ($var['SessionType'] == '2Day' ? 'checked': ''); ?> required/>        Three Day Session<input name="SessionType" type="radio" value="3Day" <?php echo ($var['SessionType'] == '3Day' ? 'checked': ''); ?> required/>
 
 Date of Birth:
 <select name="BMonth" required>
@@ -44,7 +47,7 @@ Date of Birth:
   <option value='December'>December</option>
 </select>
 <select name="BDay" required>
-  <option selected disabled>Month</option>
+  <option selected disabled>Day</option>
   <option value='1'>1</option>
   <option value='2'>2</option>
   <option value='3'>3</option>
@@ -95,16 +98,16 @@ Age of Child:
 Age of Child after first day of Preschool:
 <input name="AgeFirstDay" type="text" value="<?php echo $var['AgeFirstDay']; ?>" required/>
 
-Boy <input name="Gender" type="radio" value="Boy" required/>                       Girl <input name="Gender" type="radio" value="Girl" />
+Boy <input name="Gender" type="radio" value="Boy"  <?php echo ($var['Gender'] == 'Boy' ? 'checked': ''); ?> required/>                       Girl <input name="Gender" type="radio" value="Girl"  <?php echo ($var['Gender'] == 'Girl' ? 'checked': ''); ?> />
 
-Right Handed<input name="DominantHand" type="radio" value="RightHand" required/>      Left Handed <input name="DominantHand" type="radio" value="LeftHand" />
+Right Handed<input name="DominantHand" type="radio" value="RightHand"  <?php echo ($var['DominantHand'] == 'RightHand' ? 'checked': ''); ?> required/>      Left Handed <input name="DominantHand" type="radio" value="LeftHand"  <?php echo ($var['DominantHand'] == 'LeftHand' ? 'checked': ''); ?> />
 
 Additional Information about the child (i.e. food allergies, health issues, etc.):
 <input name="AdditionalInfo" type="text" value="<?php echo $var['AdditionalInfo']; ?>" />
 
 How many years would you like your child to attend Love 4 Learning Preschool?
 
-One Year<input name="LengthInSchool" type="radio" value="1" required/>            Two Years<input name="LengthInSchool" type="radio" value="2" />
+One Year<input name="LengthInSchool" type="radio" value="1"  <?php echo ($var['LengthInSchool'] == '1' ? 'checked': ''); ?> required/>            Two Years<input name="LengthInSchool" type="radio" value="2"  <?php echo ($var['LengthInSchool'] == '2' ? 'checked': ''); ?> />
 <h2>Parent Information</h2>
 Parent #1:
 First Name <input name="ParentFirstName1" type="text" value="<?php echo $var['ParentFirstName1']; ?>" required/>
@@ -126,7 +129,7 @@ Phone (home):
 E-Mail:
 <input name="Email" type="email" value="<?php echo $var['Email']; ?>" required/>
 
-Do you regularly check email?  &nbsp;  Yes <input name="CheckEmail" type="radio" value="Yes" /> &nbsp;   No <input name="CheckEmail" type="radio" value="No" />
+Do you regularly check email?  &nbsp;  Yes <input name="CheckEmail" type="radio" value="Yes"  <?php echo ($var['CheckEmail'] == 'Yes' ? 'checked': ''); ?> required /> &nbsp;   No <input name="CheckEmail" type="radio" value="No"  <?php echo ($var['CheckEmail'] == 'No' ? 'checked': ''); ?> />
 
 Address:
 <input name="Address" type="text" value="<?php echo $var['Address']; ?>" required/>
@@ -179,10 +182,10 @@ I, <input style="width: 100px;" name="WavierName" type="text" value="<?php echo 
 </ol>
 (Please Check all boxes that apply)
 
-<input name="Physical" type="radio" value="unaware" /> I am not aware of any physical or other condition which
+<input name="Physical" type="radio" value="unaware"  <?php echo ($var['Physical'] == 'unaware' ? 'checked': ''); ?>/> I am not aware of any physical or other condition which
 may affect my child's ability to participate in any activity at Love 4 Learning Preschool
 
-<input name="Physical" type="radio" value="aware" /> I am aware my child suffers from the following physical or other conditions which may affect their involvement at Love 4 Learning Preschool:
+<input name="Physical" type="radio" value="aware"  <?php echo ($var['Physical'] == 'aware' ? 'checked': ''); ?> /> I am aware my child suffers from the following physical or other conditions which may affect their involvement at Love 4 Learning Preschool:
 (List any physical impairments of any child who will be participating in Love 4 Learning Preschool classes.)
 <input name="WaiverChildNameAware" type="text" value="<?php echo $var['WaiverChildNameAware']; ?>" />
 
@@ -195,15 +198,15 @@ may affect my child's ability to participate in any activity at Love 4 Learning 
 
 Please list any restrictions to permission of the following:
 
-<input name="FieldTrip" type="checkbox" /> My child may be taken on field trips or excursions by bus or private motor vehicle, as well as on neighborhood walking excursions under required supervision
+<input name="FieldTrip" type="checkbox" <?php echo ($var['FieldTrip'] == 'on' ? 'checked': ''); ?> /> My child may be taken on field trips or excursions by bus or private motor vehicle, as well as on neighborhood walking excursions under required supervision
 
-<input name="Water" type="checkbox" /> My child may participate in swimming or other water activities under required supervision.
+<input name="Water" type="checkbox" <?php echo ($var['Water'] == 'on' ? 'checked': ''); ?> /> My child may participate in swimming or other water activities under required supervision.
 
 My child may be photographed for publicity or news purposes
-<input name="PhotographOnSite" type="checkbox" /> on-site
-<input name="PhotographOffSite" type="checkbox"  /> off-site
+<input name="PhotographOnSite" type="checkbox" <?php echo ($var['PhotographOnSite'] == 'on' ? 'checked': ''); ?>  /> on-site
+<input name="PhotographOffSite" type="checkbox" <?php echo ($var['PhotographOffSite'] == 'on' ? 'checked': ''); ?>  /> off-site
 
-<input name="Medicine" type="checkbox" />My child may be given non-prescribed medication as indicated on the container. This may include sunscreen, children's pain reliever, antibacterial first aid cream, syrup or ipecac may be administered if deemed necessary by poison control operator. The child's parent or gaurdian will be contacted prior to administering non-prescribed pain relievers. Prescription medications must be current and a permission slip is required per each medication.
+<input name="Medicine" type="checkbox" <?php echo $var['Medicine'] == 'on' ? 'checked': ''; ?> />My child may be given non-prescribed medication as indicated on the container. This may include sunscreen, children's pain reliever, antibacterial first aid cream, syrup or ipecac may be administered if deemed necessary by poison control operator. The child's parent or gaurdian will be contacted prior to administering non-prescribed pain relievers. Prescription medications must be current and a permission slip is required per each medication.
 
 In an emergency, Love 4 Learning Preschool has my permission to call an ambulance, or take my child to any available physician or hospital at my expense to obtain medical treatment. In most emergencies, 911 is called and the child is transported to the nearest hospital and treated by the on-call physician. The Parent or gaurdian of the child is notified as soon as possible.
 
