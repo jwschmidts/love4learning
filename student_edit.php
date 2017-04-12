@@ -12,46 +12,51 @@ $msg = '';
 
 if ($var['Submit'] == 'Submit')
 {
-  $year  = preg_replace("/[^0-9]/", "", $year);
-  $month = preg_replace("/[^0-9]/", "", $month);
-  $day   = preg_replace("/[^0-9]/", "", $day);
+  $year  = preg_replace("/[^0-9]/", "", $var['Year']);
+  $month = preg_replace("/[^0-9]/", "", $var['Month']);
+    $err = 'date';
+  $day   = preg_replace("/[^0-9]/", "", $var['Day']);
 
-  $dob = strtotime("$day $month $year");
-  $dob = date('Y-m-d', $dob);
-
-  $id       = sql_safe($var['StudentID']);
-  $fname    = sql_safe($var['FirstName']);
-  $lname    = sql_safe($var['LastName']);
-  $nick     = sql_safe($var['Nickname']);
-  $gender   = $var['Gender'] == 'Boy' ? 1 : 0;
-  $dom      = sql_safe($var['DominantHand']);
-  $add      = sql_safe($var['AdditionalInfo']);
-  $physical = sql_safe($var['PhysicalImparments']);
-  $aware    = sql_safe($var['AwareOfPhysical']);
-  $trips    = sql_safe($var['FieldTrips']);
-  $water    = sql_safe($var['Water']);
-  $onSite   = $var['OnSitePictures'] == '' ? 0 : 1;
-  $offSite  = $var['OffSitePictures'] == '' ? 0 : 1;
-  $medicine = sql_safe($var['Medicine']);
-
-  $saq = "UPDATE Students
-          SET FirstName='$fname', LastName='$lname',
-              Nickname='$nick', Gender=$gender,
-              DominantHand=$dom, AdditionalInfo='$add',
-              PhysicalImparments='$physical', AwareOfPhysical=$aware,
-              FieldTrips=$trips, Water=$water,
-              OnSitePictures=$onSite, OffSitePictures=$offSite,
-              Medicine=$medicine
-          WHERE StudentID=$id;";
-  $conn = sql_open();
-  $rq = $conn->query($saq);
-  $conn->close();
+  $dob = "$year-$month-$day";
 
   $msg = "<div class='row'><div class='col-sm-2'></div><div class='col-sm-8'>";
-  if ($rq)
-    $msg .= "<div class='alert alert-success'>Student succesfully updated. <a href='reports.php?Class=". $var['ClassID']. "'>Click here</a> to go back to class display</div>";
+  if (checkdate($month, $day, $year))
+  {
+    $id       = sql_safe($var['StudentID']);
+    $fname    = sql_safe($var['FirstName']);
+    $lname    = sql_safe($var['LastName']);
+    $nick     = sql_safe($var['Nickname']);
+    $gender   = $var['Gender'] == 'Boy' ? 1 : 0;
+    $dom      = sql_safe($var['DominantHand']);
+    $add      = sql_safe($var['AdditionalInfo']);
+    $physical = sql_safe($var['PhysicalImparments']);
+    $aware    = sql_safe($var['AwareOfPhysical']);
+    $trips    = sql_safe($var['FieldTrips']);
+    $water    = sql_safe($var['Water']);
+    $onSite   = $var['OnSitePictures'] == '' ? 0 : 1;
+    $offSite  = $var['OffSitePictures'] == '' ? 0 : 1;
+    $medicine = sql_safe($var['Medicine']);
+
+    $saq = "UPDATE Students
+            SET FirstName='$fname', LastName='$lname',
+                Nickname='$nick', Gender=$gender,
+                DominantHand=$dom, AdditionalInfo='$add',
+                PhysicalImparments='$physical', AwareOfPhysical=$aware,
+                FieldTrips=$trips, Water=$water,
+                OnSitePictures=$onSite, OffSitePictures=$offSite,
+                Medicine=$medicine, Birthday='$dob'
+            WHERE StudentID=$id;";
+    $conn = sql_open();
+    $rq = $conn->query($saq);
+    $conn->close();
+
+    if ($rq)
+      $msg .= "<div class='alert alert-success'>Student succesfully updated. <a href='reports.php?Class=". $var['ClassID']. "'>Click here</a> to go back to class display</div>";
+    else
+      $msg .= "<div class='alert alert-danger'>Something went wrong, please check your changes and try again.</div>";
+  }
   else
-    $msg .= "<div class='alert alert-success'>Something went wrong, please check your changes and try again.</div>";
+    $msg .= "<div class='alert alert-danger'>Invalid birthday, please try again.</div>";
   $msg .= "</div><div class='col-sm-2'></div></div>";
 }
 
