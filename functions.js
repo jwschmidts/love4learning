@@ -46,3 +46,20 @@ function remove_student(id)
     div.style.display = 'none';
   }
 }
+
+function remove_class(id)
+{
+  if (confirm('Are you sure you want to remove this class? This action cannot be undone.'))
+  {
+    var div = document.getElementById('class-' + id);
+    $.ajax({  //use ajax to run the check
+              type: "POST",
+              url: "ajax/class_remove.ajax.php",
+              data: { ClassID: id},
+              success: function(result) {
+              },
+              fail: function(result) { console.log('fail'); }
+    });
+    div.style.display = 'none';
+  }
+}
