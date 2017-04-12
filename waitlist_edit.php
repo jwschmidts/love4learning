@@ -113,13 +113,13 @@ $conn->close();
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="3DaySchool" type="radio" value="1" <?php echo $var['3DaySchool'] ? 'checked' : ''; ?> required/>
+              <input name="3DaySchool" type="radio" value="1" <?php echo $dbval['3DaySchool'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Yes
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="3DaySchool" type="radio" value="0" <?php echo $var['3DaySchool'] ? '' : 'checked'; ?> />
+              <input name="3DaySchool" type="radio" value="0" <?php echo $dbval['3DaySchool'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               No
@@ -132,13 +132,13 @@ $conn->close();
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="YearsDesired" type="radio" value="1" <?php echo ($var['YearsDesired'] == 1) ? 'checked' : ''; ?> required/>
+              <input name="YearsDesired" type="radio" value="1" <?php echo ($dbval['YearsDesired'] == 1) ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               1
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="YearsDesired" type="radio" value="2" <?php echo ($var['YearsDesired'] > 1) ? 'checked' : ''; ?> />
+              <input name="YearsDesired" type="radio" value="2" <?php echo ($dbval['YearsDesired'] > 1) ? 'checked' : ''; ?> />
             </div>
             <div class="col-xs-3">
               2
