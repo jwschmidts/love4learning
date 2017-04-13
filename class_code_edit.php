@@ -67,7 +67,7 @@ $conn->close();
 <div class="container">
   <div>&nbsp;<br>&nbsp;</div>
   <div class="container-fluid" style='background-color: lightgrey;'>
-    <h1 class='text-center'>Wait list edit</h1>
+    <h1 class='text-center'>Class edit</h1>
     <?php echo $msg; ?>
     <form action="class_code_edit.php" method="Get">
       <input type="hidden" name="ClassID" value="<?php echo $var['ClassID']; ?>" />
