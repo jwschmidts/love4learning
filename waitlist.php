@@ -1,5 +1,14 @@
 <?php
 $var = $_GET;
+
+if ($var['Code'] != '')
+{
+  $err = "<div style='color: #D8000C; background-color: #FFBABA; boarder-radius: 5px;'>";
+  if ($var['Code'] == 'e1')
+    $err .= "&nbsp; &nbsp; The process was not successful, please try again.";
+  $err .= "</div>";
+}
+
 ?>
 <form action='/l4l/waitlist_action.php'>
 <div class = "form-style-1">
