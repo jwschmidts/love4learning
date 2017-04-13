@@ -8,6 +8,8 @@ if ($var['Code'] != '')
     $err .= "&nbsp; &nbsp; Invalid registration code entered, please try again.";
   else if ($var['Code'] == 'e2')
     $err .= "&nbsp; &nbsp; Invalid birthday, please make sure that it is correct and resubmit.";
+  else if ($var['Code'] == 'e3')
+    $err .= "&nbsp; &nbsp; Something went wrong and your registration was not processed correctly. Please your values to ensure they are correct.";
   $err .= "</div>";
 }
 ?>

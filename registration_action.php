@@ -27,7 +27,6 @@ $byear  = $variables['BYear'];
 
 $dob = strtotime("$bday  $bmonth  $byear");
 $dob = date('Y-m-d', $dob);
-echo $dob. ' - dob<br>';
 $d = date_parse($bmonth);
 if (checkdate($d['month'], $bday, $byear) === false)
 {
@@ -83,12 +82,19 @@ $relationship     = sql_safe($variables['EmergencyRelationship']);
 $signedDate = date('Y-m-d');
 $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentFirstName2',
       '$parentLastName2', '$email',
-      $phone, $wPhone ,$cPhone, $checkEmail, '$address', '$city', '$state', '$zip', '$hobbies',
+      '$phone', '$wPhone' ,'$cPhone', '$checkEmail', '$address', '$city', '$state', '$zip', '$hobbies',
       '$fname', '$lname', '$nickName', '$dob', $schoolYear, $gender, $dominantHand,
-      '$additionalInfo', '$physical', $lengthInSchool, $sessionType, $classID, $aware, $fieldTrip, $water,
-      $onSite, $offSite, $medicine, $pottyTrained, '$signedDate', '$signedBy', '$eFirst', '$eLast', $ePhone,
+      '$additionalInfo', '$physical', '$lengthInSchool', '$sessionType', '$classID', '$aware', '$fieldTrip', '$water',
+      '$onSite', '$offSite', '$medicine', '$pottyTrained', '$signedDate', '$signedBy', '$eFirst', '$eLast', '$ePhone',
       '$eAddress', '$eCity', '$eState', $ezip, '$relationship')";
 $rq = $conn->query($saq);
+if ($rq === false)
+{
+  $variables['Code'] = 'e3';
+  $params = http_build_query($variables);
+  echo "<script>window.location.href='/registration?$params';</script>";
+}
+
 $conn->close();
 
 echo "<script>window.location.href='/success?reg=success';</script>";
