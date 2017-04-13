@@ -24,6 +24,7 @@ if ($var['Submit'] == 'Submit')
   $lname    = sql_safe($var['LastName']);
   $fname2   = sql_safe($var['FirstName2']);
   $lname2   = sql_safe($var['LastName2']);
+  $email    = sql_safe($var['Email']);
   $phone1   = preg_replace("/[^0-9]/", "", $var['Phone1']);
   $phone2   = preg_replace("/[^0-9]/", "", $var['Phone2']);
   $phone3   = preg_replace("/[^0-9]/", "", $var['Phone3']);
@@ -41,7 +42,8 @@ if ($var['Submit'] == 'Submit')
           Phone1=$phone1, Phone2='$phone2',
           Phone3=$phone3, Address='$address',
           City='$city', State='$state',
-          ZipCode='$zip', Hobbies='$relation'
+          ZipCode='$zip', Hobbies='$hobbies',
+          Email='$email', CheckEmail='$check'
           WHERE ParentID=$id;";
   $rq = $conn->query($saq);
 
