@@ -9,7 +9,7 @@ if ($var['Code'] != '')
   else if ($var['Code'] == 'e2')
     $err .= "&nbsp; &nbsp; Invalid birthday, please make sure that it is correct and resubmit.";
   else if ($var['Code'] == 'e3')
-    $err .= "&nbsp; &nbsp; Something went wrong and your registration was not processed correctly. Please your values to ensure they are correct.";
+    $err .= "&nbsp; &nbsp; Something went wrong and your registration was not processed correctly. Please check your values to ensure they are correct. (phone numbers and zip codes need to be numbers)";
   $err .= "</div>";
 }
 ?>
