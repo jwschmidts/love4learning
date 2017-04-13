@@ -21,6 +21,8 @@ $day   = date('d', strtotime($var['Birthday']));
 
 $msg = '';
 
+$conn = sql_open();
+
 if ($var['Submit'] == 'Submit')
 {
   $year  = preg_replace("/[^0-9]/", "", $var['Year']);
@@ -57,9 +59,7 @@ if ($var['Submit'] == 'Submit')
                 OnSitePictures=$onSite, OffSitePictures=$offSite,
                 Medicine=$medicine, Birthday='$dob'
             WHERE StudentID=$id;";
-    $conn = sql_open();
     $rq = $conn->query($saq);
-    $conn->close();
 
     if ($rq)
       $msg .= "<div class='alert alert-success'>Student succesfully updated. <a href='reports.php?Class=". $var['ClassID']. "'>Click here</a> to go back to class display</div>";
@@ -70,6 +70,12 @@ if ($var['Submit'] == 'Submit')
     $msg .= "<div class='alert alert-danger'>Invalid birthday, please try again.</div>";
   $msg .= "</div><div class='col-sm-2'></div></div>";
 }
+
+$ssq = "Select * from Students where StudentID=". $var['StudentID'];
+$rq = $conn->query($ssq);
+$dbval = sql_assoc($rq);
+
+$conn->close();
 
 ?>
 <html>
@@ -97,20 +103,20 @@ if ($var['Submit'] == 'Submit')
     <h1 class='text-center'>Student Edit</h1>
     <?php echo $msg; ?>
     <form action="student_edit.php" method="Get">
-      <input type="hidden" name="StudentID" value="<?php echo $var['StudentID']; ?>" />
-      <input type="hidden" name="ClassID" value="<?php echo $var['ClassID']; ?>" />
+      <input type="hidden" name="StudentID" value="<?php echo $dbval['StudentID']; ?>" />
+      <input type="hidden" name="ClassID" value="<?php echo $dbval['ClassID']; ?>" />
       <div class="row">
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>First Name:</label>
         </div>
         <div class="col-sm-3 text-left-sm text-right">
-          <input name="FirstName" class="formInput" type="text" value="<?php echo $var['FirstName']; ?>" required/>
+          <input name="FirstName" class="formInput" type="text" value="<?php echo $dbval['FirstName']; ?>" required/>
         </div>
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>Last Name:</label>
         </div>
         <div class="col-sm-3 text-left-sm text-right">
-          <input name="LastName" class="formInput" type="text" value="<?php echo $var['LastName']; ?>" required/>
+          <input name="LastName" class="formInput" type="text" value="<?php echo $dbval['LastName']; ?>" required/>
         </div>
       </div>
       <div class="row">
@@ -118,7 +124,7 @@ if ($var['Submit'] == 'Submit')
           <label>Nickname:</label>
         </div>
         <div class="col-sm-3 text-center">
-          <input name="Nickname" class="formInput" type="text" value="<?php echo $var['Nickname']; ?>" required/>
+          <input name="Nickname" class="formInput" type="text" value="<?php echo $dbval['Nickname']; ?>" required/>
         </div>
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>Birthday:</label>
@@ -155,13 +161,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Gender" type="radio" value="Boy" <?php echo $var['Gender'] ? '' : 'checked'; ?> required/>
+              <input name="Gender" type="radio" value="Boy" <?php echo $dbval['Gender'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Boy
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Gender" type="radio" value="Girl" <?php echo $var['Gender'] ? 'checked' : ''; ?> />
+              <input name="Gender" type="radio" value="Girl" <?php echo $dbval['Gender'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-sm-3">
               Girl
@@ -174,13 +180,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="DominantHand" type="radio" value="1" <?php echo $var['DominantHand'] ? 'checked' : ''; ?> required/>
+              <input name="DominantHand" type="radio" value="1" <?php echo $dbval['DominantHand'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Right
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="DominantHand" type="radio" value="0" <?php echo $var['DominantHand'] ? '' : 'checked'; ?> />
+              <input name="DominantHand" type="radio" value="0" <?php echo $dbval['DominantHand'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               Left
@@ -195,13 +201,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="FieldTrips" type="radio" value="1" <?php echo $var['FieldTrips'] ? 'checked' : ''; ?> required/>
+              <input name="FieldTrips" type="radio" value="1" <?php echo $dbval['FieldTrips'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Yes
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="FieldTrips" type="radio" value="0" <?php echo $var['FieldTrips'] ? '' : 'checked'; ?> />
+              <input name="FieldTrips" type="radio" value="0" <?php echo $dbval['FieldTrips'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               No
@@ -214,13 +220,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Water" type="radio" value="1" <?php echo $var['Water'] ? 'checked' : ''; ?> required/>
+              <input name="Water" type="radio" value="1" <?php echo $dbval['Water'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Yes
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Water" type="radio" value="0" <?php echo $var['Water'] ? '' : 'checked'; ?> />
+              <input name="Water" type="radio" value="0" <?php echo $dbval['Water'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               No
@@ -235,13 +241,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right ">
-              <input name="OnSitePictures" type="checkbox" value="1" <?php echo $var['OnSitePictures'] ? 'checked' : ''; ?> />
+              <input name="OnSitePictures" type="checkbox" value="1" <?php echo $dbval['OnSitePictures'] ? 'checked' : ''; ?> />
             </div>
             <div class="col-xs-3">
               On Site
             </div>
             <div class="col-xs-3 text-left-sm text-right ">
-              <input name="OffSitePictures" type="checkbox" value="1" <?php echo $var['OffSitePictures'] ? 'checked' : ''; ?> />
+              <input name="OffSitePictures" type="checkbox" value="1" <?php echo $dbval['OffSitePictures'] ? 'checked' : ''; ?> />
             </div>
             <div class="col-xs-3">
               Off Site
@@ -254,13 +260,13 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Medicine" type="radio" value="1" <?php echo $var['Medicine'] ? 'checked' : ''; ?> required/>
+              <input name="Medicine" type="radio" value="1" <?php echo $dbval['Medicine'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Yes
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="Medicine" type="radio" value="0" <?php echo $var['Medicine'] ? '' : 'checked'; ?> />
+              <input name="Medicine" type="radio" value="0" <?php echo $dbval['Medicine'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               No
@@ -273,7 +279,7 @@ if ($var['Submit'] == 'Submit')
           <label>Additional Info:</label>
         </div>
         <div class="col-sm-3 text-left-sm text-right">
-          <textarea name="AdditionalInfo" class="formInput"><?php echo $var['AdditionalInfo']; ?></textarea>
+          <textarea name="AdditionalInfo" class="formInput"><?php echo $dbval['AdditionalInfo']; ?></textarea>
         </div>
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>Physical Limitation:</label>
@@ -281,20 +287,20 @@ if ($var['Submit'] == 'Submit')
         <div class="col-sm-3 loginInputMatch">
           <div class="row">
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="AwareOfPhysical" type="radio" value="1" <?php echo $var['AwareOfPhysical'] ? 'checked' : ''; ?> required/>
+              <input name="AwareOfPhysical" type="radio" value="1" <?php echo $dbval['AwareOfPhysical'] ? 'checked' : ''; ?> required/>
             </div>
             <div class="col-xs-3">
               Aware
             </div>
             <div class="col-xs-3 text-left-sm text-right">
-              <input name="AwareOfPhysical" type="radio" value="0" <?php echo $var['AwareOfPhysical'] ? '' : 'checked'; ?> />
+              <input name="AwareOfPhysical" type="radio" value="0" <?php echo $dbval['AwareOfPhysical'] ? '' : 'checked'; ?> />
             </div>
             <div class="col-xs-3">
               Unaware
             </div>
           </div>
           <div class="row">
-            <textarea name="PhysicalImparments" class="formInput"><?php echo $var['PhysicalImparments']; ?></textarea>
+            <textarea name="PhysicalImparments" class="formInput"><?php echo $dbval['PhysicalImparments']; ?></textarea>
           </div>
         </div>
       </div>
