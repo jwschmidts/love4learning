@@ -377,7 +377,7 @@ else if ($variables['report'] == 'DisplayClasses')
     ?>
     <div class='row' id='class-<?php echo $rs['ClassID'] ?>'>
       <div class='col-xs-3 well'>
-         <?php echo $allow; ?> <a href='reports.php?Class=<?php echo $rs['ClassID']; ?>'><?php echo $rs['ClassName']; ?></a>
+         <?php echo $allow; ?> &nbsp; <a href="class_code_edit.php?ClassID=<?php echo $rs['ClassID']; ?>"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> <a href='reports.php?Class=<?php echo $rs['ClassID']; ?>'><?php echo $rs['ClassName']; ?></a>
       </div>
       <div class='col-xs-3 well'>
         <?php echo $rs['ClassSize']; ?>
@@ -539,6 +539,7 @@ else if ($variables['ParentID'] != '')
       </div>
       <div class='row'>
         <div class='col-xs-3 well'>
+          <a href="parent_edit.php?ParentID=<?php echo $variables['ParentID']; ?>"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a>
           <?php
             echo $rs['FirstName']. ' '. $rs['LastName']. '<br>';
             echo $rs['FirstName2']. ' '. $rs['LastName2'];
