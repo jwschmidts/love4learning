@@ -1,0 +1,34 @@
+drop procedure if exists deleteRegisterSP;
+
+delimiter ;;
+
+create procedure deleteRegisterSP
+(
+in StudentID int(11)
+)
+begin
+declare ParID int unsigned default 0;
+declare ConID int unsigned default 0;
+declare StuID int unsigned default 0;
+
+SET StuID = StudentID;
+
+select ParentID into ParID
+from Students
+where StudentID = StuID
+LIMIT 1;
+
+select ContactID into ConID
+from Students
+where StudentID = StuID
+LIMIT 1;
+
+delete from  Students where StudentID = StuID;
+
+delete from Parents where ParentID = ParID;
+
+delete from EmergencyContact where ContactID = ConID;
+
+end ;;
+
+call deleteRegisterSP(57)
