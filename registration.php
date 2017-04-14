@@ -107,7 +107,7 @@ Right Handed<input name="DominantHand" type="radio" value="RightHand"  <?php ech
 Additional Information about the child (i.e. food allergies, health issues, etc.):
 <input name="AdditionalInfo" type="text" value="<?php echo $var['AdditionalInfo']; ?>" />
 
-How many years would you like your child to attend Love 4 Learning Preschool?
+How many years would you like your child to attend Love 4 Learning Preschool? (This does not gaurantee enrollment for both years, this is just for my reference.)
 
 One Year<input name="LengthInSchool" type="radio" value="1"  <?php echo ($var['LengthInSchool'] == '1' ? 'checked': ''); ?> required/>            Two Years<input name="LengthInSchool" type="radio" value="2"  <?php echo ($var['LengthInSchool'] == '2' ? 'checked': ''); ?> />
 <h2>Parent Information</h2>
