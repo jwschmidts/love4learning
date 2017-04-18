@@ -75,4 +75,17 @@ function sql_assoc($rq)
 	return null;
 }
 
+/**
+ * Sanitize string for html and skipping already sanatized characters
+ *
+ * @param string $str    // either safe or unsafe string
+ * @return string        // html safe string
+ */
+function html_safe($str)
+{
+	// encode single quotes and don't double encode
+	return htmlspecialchars($str, ENT_QUOTES | ENT_HTML401, ini_get("default_charset"), false);
+}
+
+
 ?>

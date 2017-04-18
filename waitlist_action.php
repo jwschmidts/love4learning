@@ -3,9 +3,9 @@
 include_once "sql.php";
 $variables = $_GET;
 
-$pName = sql_safe($variables['ParentsName']);
-$email = sql_safe($variables['ParentsEmail']);
-$sName = sql_safe($variables['StudentsName']);
+$pName = sql_safe(html_safe($variables['ParentsName']));
+$email = sql_safe(html_safe($variables['ParentsEmail']));
+$sName = sql_safe(html_safe($variables['StudentsName']));
 $sAge  = preg_replace("/[^0-9]/", "", $variables['StudentAge']);
 $years = preg_replace("/[^0-9]/", "", $variables['YearsToAttend']);
 $class = $variables['ClassType'] == 'ThreeDay' ? 1 : 0;
