@@ -13,6 +13,12 @@ $_SESSION['timeout'] = time();
 
 $user = $_POST['user'];
 $pass = $_POST['pass'];
+$logout = $_GET['logout'];
+if ($logout == 'logout')
+{
+  session_destroy();
+  $login = 'yes';
+}
 
 $base = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 if (($user == "l4l") && ($pass == "love4learning" ))
@@ -52,6 +58,7 @@ if (!isset($_SESSION['user']))
 <nav class="navbar navbar-default navbar-static-top">
   <div class="container">
     <img src="http://love4learningpreschool.com/wp-content/uploads/2017/03/7e13f7_a65b8e5e8abd31fc0393b944abdc2785.jpg" alt="Love4Learning Preschool" style="height:70px; width:auto;">
+    <a href='/l4l/reports.php?logout=logout' class="btn">Log Out</a>
   </div>
 </nav>
 
