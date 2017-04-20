@@ -15,7 +15,7 @@ if (isset($a['ClassID']))
 else
 {
   $conn->close();
-  $variables['Code'] = 'e1';
+  $variables['ErrCode'] = 'e1';
   $params = http_build_query($variables);
   echo "<script>window.location.href='/registration?$params';</script>";
 }
@@ -31,7 +31,7 @@ $d = date_parse($bmonth);
 if (checkdate($d['month'], $bday, $byear) === false)
 {
   $conn->close();
-  $variables['Code'] = 'e2';
+  $variables['ErrCode'] = 'e2';
   $params = http_build_query($variables);
   echo "<script>window.location.href='/registration?$params';</script>";
 }
@@ -92,7 +92,7 @@ $relationship     = sql_safe(html_safe($variables['EmergencyRelationship']));
 
 if ($err != '')
 {
-  $variables['Code'] = $err;
+  $variables['ErrCode'] = $err;
   $params = http_build_query($variables);
   echo "<script>window.location.href='/registration?$params';</script>";
 }
@@ -108,7 +108,7 @@ $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentF
 $rq = $conn->query($saq);
 if ($rq === false)
 {
-  $variables['Code'] = 'e3';
+  $variables['ErrCode'] = 'e3';
   $params = http_build_query($variables);
   echo "<script>window.location.href='/registration?$params';</script>";
 }

@@ -1,24 +1,24 @@
 <?php
 $var = $_GET;
 $err = '';
-if ($var['Code'] != '')
+if ($var['ErrCode'] != '')
 {
   $err = "<div style='color: #D8000C; background-color: #FFBABA; boarder-radius: 5px;'>";
-  if ($var['Code'] == 'e1')
+  if ($var['ErrCode'] == 'e1')
     $err .= "&nbsp; &nbsp; Invalid registration code entered, please try again.";
-  else if ($var['Code'] == 'e2')
+  else if ($var['ErrCode'] == 'e2')
     $err .= "&nbsp; &nbsp; Invalid birthday, please make sure that it is correct and resubmit.";
-  else if ($var['Code'] == 'e3')
+  else if ($var['ErrCode'] == 'e3')
     $err .= "&nbsp; &nbsp; Something went wrong and your registration was not processed correctly. Please check your values to ensure they are correct. (phone numbers and zip codes need to be numbers)";
-  else if ($var['Code'] != '')
-    $err .= $var['Code'];
+  else if ($var['ErrCode'] != '')
+    $err .= $var['ErrCode'];
   $err .= "</div>";
 }
 ?>
 <h1>Student Registration Form</h1>
 <?php echo $err; ?>
 <form action="/l4l/registration_action.php" method="Get">
-Registration Code: <input name="Code" type="text" required />
+Registration Code: <input name="Code" type="text" value="<?php echo $var['Code']; ?>" required />
 <h2>Student Information</h2>
 First name:
 <input name="fname" type="text" value="<?php echo $var['fname']; ?>" required/>

@@ -17,7 +17,7 @@ $rq = $conn->query($saq);
 $conn->close();
 if ($rq === false)
 {
-  echo $saq; exit;
+  //echo $saq; exit;
   $variables['Code'] = 'e1';
   $params = http_build_query($variables);
   echo "<script>window.location.href='/waitlist?$params';</script>";
