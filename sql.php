@@ -1,4 +1,7 @@
 <?php
+/**
+ *  open sql connection and return the object
+ */
 function sql_open()
 {
   $servername = "mysql.love4learningpreschool.com";

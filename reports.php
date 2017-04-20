@@ -2,6 +2,7 @@
 session_start();
 $login = 'no';
 
+// log user out if it is past time
 if ($_SESSION['timeout'] + 60 * 60 < time())
 {
   if (isset($_SESSION['timeout']))
@@ -14,12 +15,14 @@ $_SESSION['timeout'] = time();
 $user = $_POST['user'];
 $pass = $_POST['pass'];
 $logout = $_GET['logout'];
+// logout user
 if ($logout == 'logout')
 {
   session_destroy();
   $login = 'yes';
 }
 
+// try to log user in
 $base = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 if (($user == "l4l") && ($pass == "love4learning" ))
 {
@@ -63,6 +66,7 @@ if (!isset($_SESSION['user']))
 </nav>
 
 <?php
+// show login page if needed
 if ($login == 'yes')
 {
   if(isset($_POST))
@@ -137,6 +141,7 @@ $conn = sql_open();
 <?php
 $variables = $_GET;
 
+// display 2 day waitlist
 if ($variables['report'] == 'Waitlist2Day')
 {
 ?>
@@ -196,6 +201,7 @@ if ($variables['report'] == 'Waitlist2Day')
 </div>
 <?php
 }
+// display 3 day waitlist
 else if ($variables['report'] == 'Waitlist3Day')
 {
   ?>
@@ -254,6 +260,7 @@ else if ($variables['report'] == 'Waitlist3Day')
   </div>
   <?php
 }
+// display create class form
 else if ($variables['report'] == 'CreateClass')
 {
   if ($variables['form_submit'] == "Create Class")
@@ -345,6 +352,7 @@ else if ($variables['report'] == 'CreateClass')
 <?php
   }
 }
+// display list of classes
 else if ($variables['report'] == 'DisplayClasses')
 {
 ?>
@@ -402,6 +410,7 @@ else if ($variables['report'] == 'DisplayClasses')
   exit;
 
 }
+// display a specific class
 else if ($variables['Class'] != '')
 {
   $ssq = 'select ClassName from Class where ClassID='. $variables['Class'];
@@ -517,6 +526,7 @@ else if ($variables['Class'] != '')
   </div>
 <?php
 }
+// display a parent
 else if ($variables['ParentID'] != '')
 {
   $ssq = "select * from Parents where ParentID=". $variables['ParentID'];
@@ -573,6 +583,7 @@ else if ($variables['ParentID'] != '')
   </div>
 <?php
 }
+// display an emergency contact
 else if ($variables['ContactID'] != '')
 {
   $ssq = "select * from EmergencyContact where ContactID=". $variables['ContactID'];

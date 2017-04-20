@@ -1,5 +1,7 @@
 <?php
 
+// delete a waitlist entry
+
 include_once "../sql.php";
 $conn = sql_open();
 

@@ -1,5 +1,7 @@
 <?php
 
+// Delete a class from the database
+
 include_once "../sql.php";
 $conn = sql_open();
 

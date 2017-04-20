@@ -1,5 +1,7 @@
 <?php
 
+// delete a student, parent, and emergency contact from the db 
+
 include_once "../sql.php";
 $conn = sql_open();
 

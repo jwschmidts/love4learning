@@ -1,7 +1,7 @@
 <?php
 
 include_once "sql.php";
-$variables = $_GET;
+$variables = $_GET;   // Get all variables
 
 $conn = sql_open();
 
@@ -25,6 +25,7 @@ $bday   = $variables['BDay'];
 $bmonth = $variables['BMonth'];
 $byear  = $variables['BYear'];
 
+// validate birthday entered
 $dob = strtotime("$bday  $bmonth  $byear");
 $dob = date('Y-m-d', $dob);
 $d = date_parse($bmonth);
@@ -39,6 +40,7 @@ if (checkdate($d['month'], $bday, $byear) === false)
 //echo "<pre>"; print_r($variables); exit;
 $err = '';
 
+// sql_safe and html_safe all variable for saving
 $parentFirstName1 = sql_safe(html_safe($variables['ParentFirstName1']));
 $parentLastName1  = sql_safe(html_safe($variables['ParentLastName1']));
 $parentFirstName2 = sql_safe(html_safe($variables['ParentFirstName2']));
@@ -75,6 +77,7 @@ $signedBy         = sql_safe(html_safe($variables['PrintedName']));
 $eFirst           = sql_safe(html_safe($variables['EmergencyFirstName']));
 $eLast            = sql_safe(html_safe($variables['EmergencyLastName']));
 $ePhone           = preg_replace("/[^0-9]/", "", $variables['EmergencyPhone']);
+// phone needs to be 10 numbers
 if ((strlen($phone) != 10) || (strlen($ePhone) != 10))
 {
   $err .= "One of the phone numbers entered is not a valid number, please check and resubmit.<br>";
@@ -84,12 +87,14 @@ $eAddress         = sql_safe(html_safe($variables['EmergencyAddress']));
 $eCity            = sql_safe(html_safe($variables['EmergencyCity']));
 $eState           = sql_safe(html_safe($variables['EmergencyState']));
 $ezip             = preg_replace("/[^0-9]/", "", $variables['EmergencyZip']);
+// zip needs to be 5 numbers
 if ((strlen($zip) != 5) || (strlen($ezip) != 5))
 {
   $err .= "One of the zip codes entered is not valid. Please check and resubmit.<br>";
 }
 $relationship     = sql_safe(html_safe($variables['EmergencyRelationship']));
 
+// send error back if something fails
 if ($err != '')
 {
   $variables['ErrCode'] = $err;
@@ -97,6 +102,7 @@ if ($err != '')
   echo "<script>window.location.href='/registration?$params';</script>";
 }
 
+// put info into the DB
 $signedDate = date('Y-m-d');
 $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentFirstName2',
       '$parentLastName2', '$email',
@@ -106,6 +112,7 @@ $saq = "call InsertRegisterSP('$parentFirstName1', '$parentLastName1', '$parentF
       '$onSite', '$offSite', '$medicine', '$pottyTrained', '$signedDate', '$signedBy', '$eFirst', '$eLast', '$ePhone',
       '$eAddress', '$eCity', '$eState', $ezip, '$relationship')";
 $rq = $conn->query($saq);
+// if insert fails return an error code to be displayed
 if ($rq === false)
 {
   $variables['ErrCode'] = 'e3';
