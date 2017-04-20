@@ -53,6 +53,7 @@ function remove_student(id)
               fail: function(result) { console.log('fail'); }
     });
     div.style.display = 'none';
+    document.getElementById(id).style.disply = 'none';
   }
 }
 
