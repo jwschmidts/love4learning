@@ -10,6 +10,8 @@ if ($var['Code'] != '')
     $err .= "&nbsp; &nbsp; Invalid birthday, please make sure that it is correct and resubmit.";
   else if ($var['Code'] == 'e3')
     $err .= "&nbsp; &nbsp; Something went wrong and your registration was not processed correctly. Please check your values to ensure they are correct. (phone numbers and zip codes need to be numbers)";
+  else if ($var['Code'] != '')
+    $err .= $var['Code'];
   $err .= "</div>";
 }
 ?>
@@ -121,12 +123,8 @@ First Name <input name="ParentFirstName2" type="text" value="<?php echo $var['Pa
 
 Last Name <input name="ParentLastName2" type="text" value="<?php echo $var['ParentLastName2']; ?>" />
 
-Phone (home):
+Phone:
 <input name="Phone" type="text" value="<?php echo $var['Phone']; ?>" required/>
-(work)
-<input name="WorkPhone" type="text" value="<?php echo $var['WorkPhone']; ?>" />
-(cell)
-<input name="CellPhone" type="text" value="<?php echo $var['CellPhone']; ?>" />
 
 E-Mail:
 <input name="Email" type="email" value="<?php echo $var['Email']; ?>" required/>
@@ -143,7 +141,7 @@ State:
 <input name="State" type="text" value="<?php echo $var['State']; ?>" required/>
 
 Zip Code:
-<input name="Zip" type="text" value="<?php echo $var['Zip']; ?>" required/>
+<input name="Zip" type="text" maxlength=5 value="<?php echo $var['Zip']; ?>" required/>
 
 Hobbies or professions you would be willing to share with the class (i.e. dentist, policeman, foreign country, etc.):
 <input name="Hobbies" type="text" value="<?php echo $var['Hobbies']; ?>" />
@@ -170,7 +168,7 @@ State:
 <input name="EmergencyState" type="text" value="<?php echo $var['EmergencyState']; ?>" required/>
 
 Zip Code:
-<input name="EmergencyZip" type="text" value="<?php echo $var['EmergencyZip']; ?>" required/>
+<input name="EmergencyZip" type="text" maxlength=5 value="<?php echo $var['EmergencyZip']; ?>" required/>
 
 <h2>Waiver</h2>
 
