@@ -97,10 +97,10 @@ for ($i=2;$i<7;$i++)
 </select>
 
 Age of Child:
-<input name="Age" type="text" value="<?php echo $var['Age']; ?>" required/>
+<input name="Age" type="number" min="1" max="5" step="1" value="3" value="<?php echo $var['Age']; ?>" required/>
 
 Age of Child after first day of Preschool:
-<input name="AgeFirstDay" type="text" value="<?php echo $var['AgeFirstDay']; ?>" required/>
+<input name="AgeFirstDay" type="number" min="2" max="5" step="1" value="3" value="<?php echo $var['AgeFirstDay']; ?>" required/>
 
 Boy <input name="Gender" type="radio" value="Boy"  <?php echo ($var['Gender'] == 'Boy' ? 'checked': ''); ?> required/>                       Girl <input name="Gender" type="radio" value="Girl"  <?php echo ($var['Gender'] == 'Girl' ? 'checked': ''); ?> />
 
