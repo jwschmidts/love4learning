@@ -172,7 +172,7 @@ Zip Code:
 
 <h2>Waiver</h2>
 
-I, <input style="width: 100px;" name="WavierName" type="text" value="<?php echo $var['WaiverName']; ?>" required/> (name parent or legal gaurding), for myself and for my child, agree to all of the following.
+I, <input style="width: 100px;" name="WavierName" type="text" value="<?php echo $var['WavierName']; ?>" required/> (name parent or legal gaurding), for myself and for my child, agree to all of the following.
 <ol>
  	<li>I wish to enroll my child in Love 4 Learning Preschool</li>
  	<li>I realize that while attending Love 4 Learning Preschool that my child will be supervised by a teacher or assistant teacher during the time they are at school. I understand that Love 4 Learning Preschool has attempted to create a injury free play area for my child; however, I acknowledge that young children may get hurt while playing with other children and while engaging in physical activities, and that there is a risk of property damage, serious injury or death inherent in my child participating in preschool classes and activities. I also understand that there are risks inherent in any physical activity program, including the use of equipment such as those provided for use at Love 4 Learning Preschool which may or may not be obvious and which may pose serious threats to any person if used improperly.</li>
