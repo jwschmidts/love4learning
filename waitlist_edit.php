@@ -38,7 +38,7 @@ if ($var['Submit'] == 'Submit')
   if ($rq)
   {
     $waitlist = $days ? 'Waitlist3Day' : 'Waitlist2Day';
-    $msg .= "<div class='alert alert-success'>Waiver item succesfully updated. <a href='reports.php?report=$waitlist'>Click here</a> to go back to contact display</div>";
+    $msg .= "<div class='alert alert-success'>Wailtlist item succesfully updated. <a href='reports.php?report=$waitlist'>Click here</a> to go back to contact display</div>";
   }
   else
     $msg .= "<div class='alert alert-danger'>Something went wrong, please check your changes and try again.</div>";
@@ -103,7 +103,7 @@ $conn->close();
           <label>Student Age:</label>
         </div>
         <div class="col-sm-3 text-center">
-          <input name="Age" class="formInput" type="text" value="<?php echo $dbval['Age']; ?>" required/>
+          <input name="Age" class="formInput" type="number" min="1" max="5" step="1" value="3" value="<?php echo $dbval['Age']; ?>" required/>
         </div>
       </div>
       <div class="row">

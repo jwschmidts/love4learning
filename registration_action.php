@@ -78,21 +78,22 @@ $eFirst           = sql_safe(html_safe($variables['EmergencyFirstName']));
 $eLast            = sql_safe(html_safe($variables['EmergencyLastName']));
 $ePhone           = preg_replace("/[^0-9]/", "", $variables['EmergencyPhone']);
 // phone needs to be 10 numbers
-if ((strlen($phone) != 10) || (strlen($ePhone) != 10))
-{
-  $err .= "One of the phone numbers entered is not a valid number, please check and resubmit.<br>";
-  $err .= "$phone, $ephone";
-}
+if (strlen($phone) != 10)
+  $err .= "The parent phone number was invalid, please check and resubmit.<br>";
+if (strlen($ePhone) != 10)
+  $err .= "The emergency contact phone number was invalid, please check and resubmit.<br>";
+
 $eAddress         = sql_safe(html_safe($variables['EmergencyAddress']));
 $eCity            = sql_safe(html_safe($variables['EmergencyCity']));
 $eState           = sql_safe(html_safe($variables['EmergencyState']));
 $ezip             = preg_replace("/[^0-9]/", "", $variables['EmergencyZip']);
 // zip needs to be 5 numbers
-if ((strlen($zip) != 5) || (strlen($ezip) != 5))
-{
-  $err .= "One of the zip codes entered is not valid. Please check and resubmit.<br>";
-}
-$relationship     = sql_safe(html_safe($variables['EmergencyRelationship']));
+if (strlen($zip) != 5)
+  $err .= "The zip code entered for parents address was invalid, please check and resubmit.<br>";
+if (strlen($ezip) != 5)
+  $err .= "The zip code entered for the emergency contact was invalid, please check and resubmit.<br>";
+
+$relationship = sql_safe(html_safe($variables['EmergencyRelationship']));
 
 // send error back if something fails
 if ($err != '')
