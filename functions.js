@@ -8,12 +8,15 @@ $(document).ready(function(){
 function show_student_info(id)
 {
   var div = document.getElementById(id);
-  if (div.style.display == 'none')
+  if (div)
   {
-    div.style.display = 'block';
-    return;
+    if (div.style.display == 'none')
+    {
+      div.style.display = 'block';
+      return;
+    }
+    div.style.display = 'none';
   }
-  div.style.display = 'none';
 }
 
 /*
@@ -43,7 +46,6 @@ function remove_student(id)
 {
   if (confirm('Are you sure you want to remove this student? It CANNOT be undone and will remove the students parents and emergency contact information.'))
   {
-    var div = document.getElementById('student-' + id);
     $.ajax({  //use ajax to run the check
               type: "POST",
               url: "ajax/student_remove.ajax.php",
@@ -52,8 +54,8 @@ function remove_student(id)
               },
               fail: function(result) { console.log('fail'); }
     });
-    div.style.display = 'none';
-    document.getElementById(id).style.disply = 'none';
+    document.getElementById('student-' + id).remove();
+    document.getElementById(id).remove();
   }
 }
 

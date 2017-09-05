@@ -1,17 +1,16 @@
 <?php
 
-// delete a student, parent, and emergency contact from the db 
+// delete a student, parent, and emergency contact from the db
 
 include_once "../sql.php";
 $conn = sql_open();
 
-$variables = $_POST;
-
-$saq = "CALL deleteRegisterSP(". $variables['StudentID']. ");";
+$sid = (int)$_POST['StudentID'];
+//$saq = "CALL deleteRegisterSP(". $variables['StudentID']. ");";
+$saq = "delete from Students where StudentID=$sid";
 $rq = $conn->query($saq);
 header('Content-type: application/json');
-echo json_ecode($rq);
-
+echo 'Done';
 
 $conn->close();
 ?>
