@@ -26,8 +26,6 @@ if ($var['Submit'] == 'Submit')
   $lname2   = sql_safe($var['LastName2']);
   $email    = sql_safe($var['Email']);
   $phone1   = preg_replace("/[^0-9]/", "", $var['Phone1']);
-  $phone2   = preg_replace("/[^0-9]/", "", $var['Phone2']);
-  $phone3   = preg_replace("/[^0-9]/", "", $var['Phone3']);
   $check    = preg_replace("/[^0-9]/", "", $var['CheckEmail']);
   $address  = sql_safe($var['Address']);
   $city     = sql_safe($var['City']);
@@ -39,8 +37,7 @@ if ($var['Submit'] == 'Submit')
   $saq = "UPDATE Parents
           SET FirstName='$fname', LastName='$lname',
           FirstName2='$fname2', LastName2='$lname2',
-          Phone1=$phone1, Phone2='$phone2',
-          Phone3=$phone3, Address='$address',
+          Phone1=$phone1, Address='$address',
           City='$city', State='$state',
           ZipCode='$zip', Hobbies='$hobbies',
           Email='$email', CheckEmail='$check'
@@ -121,20 +118,6 @@ $conn->close();
         </div>
         <div class="col-sm-3 text-center">
           <input name="Phone1" class="formInput" type="text" value="<?php echo $dbval['Phone1']; ?>" required/>
-        </div>
-        <div class="col-sm-2 text-left-sm text-right loginInputMatch">
-          <label>Phone(cell):</label>
-        </div>
-        <div class="col-sm-3 text-center">
-          <input name="Phone2" class="formInput" type="text" value="<?php echo $dbval['Phone2']; ?>" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-2 text-left-sm text-right loginInputMatch">
-          <label>Phone(work):</label>
-        </div>
-        <div class="col-sm-3 text-center">
-          <input name="Phone3" class="formInput" type="text" value="<?php echo $dbval['Phone3']; ?>" />
         </div>
         <div class="col-sm-2 text-left-sm text-right loginInputMatch">
           <label>Email:</label>

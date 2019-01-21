@@ -566,11 +566,7 @@ else if ($variables['ParentID'] != '')
           <?php echo $rs['Email']; ?>
         </div>
         <div class='col-xs-3 well'>
-          <?php
-            echo $rs['Phone1']. '<br>';
-            echo $rs['Phone2']. '(work)<br>';
-            echo $rs['Phone3']. '(cell)';
-          ?>
+          <?php echo $rs['Phone1']; ?>
         </div>
         <div class='col-xs-3 well'>
           <?php
