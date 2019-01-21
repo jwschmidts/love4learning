@@ -159,14 +159,17 @@ if ($variables['report'] == 'Waitlist2Day')
         <div class='col-xs-3'>
           Parent Email:
         </div>
-        <div class='col-xs-3'>
+        <div class='col-xs-2'>
           Student Name:
         </div>
         <div class='col-xs-1'>
           Student Age:
         </div>
-        <div class='col-xs-2'>
+        <div class='col-xs-1'>
           Years Desired:
+        </div>
+        <div class='col-xs-2'>
+          Date Added:
         </div>
       </div>
 <?php
@@ -184,14 +187,17 @@ if ($variables['report'] == 'Waitlist2Day')
     <div class='col-xs-3 well'>
       <?php echo $rs['ParentEmail']; ?>
     </div>
-    <div class='col-xs-3 well'>
+    <div class='col-xs-2 well'>
       <?php echo $rs['StudentName']; ?>
     </div>
     <div class='col-xs-1 well'>
       <?php echo $rs['Age']; ?>
     </div>
-    <div class='col-xs-2 well'>
+    <div class='col-xs-1 well'>
       <?php echo $rs['YearsDesired']; ?>
+    </div>
+    <div class='col-xs-2 well'>
+      <?php echo date("F j, Y",strtotime($rs['WaitlistDate'])); ?>
     </div>
   </div>
   <?php
@@ -219,11 +225,14 @@ else if ($variables['report'] == 'Waitlist3Day')
           <div class='col-xs-3'>
             Parent Email:
           </div>
-          <div class='col-xs-3'>
+          <div class='col-xs-2'>
             Student Name:
           </div>
           <div class='col-xs-1'>
             Student Age:
+          </div>
+          <div class='col-xs-1'>
+            Years Desired:
           </div>
           <div class='col-xs-2'>
             Years Desired:
@@ -243,14 +252,17 @@ else if ($variables['report'] == 'Waitlist3Day')
       <div class='col-xs-3 well'>
         <?php echo $rs['ParentEmail']; ?>
       </div>
-      <div class='col-xs-3 well'>
+      <div class='col-xs-2 well'>
         <?php echo $rs['StudentName']; ?>
       </div>
       <div class='col-xs-1 well'>
         <?php echo $rs['Age']; ?>
       </div>
-      <div class='col-xs-2 well'>
+      <div class='col-xs-1 well'>
         <?php echo $rs['YearsDesired']; ?>
+      </div>
+      <div class='col-xs-2 well'>
+        <?php echo date("F j, Y",strtotime($rs['WaitlistDate'])); ?>
       </div>
     </div>
     <?php
