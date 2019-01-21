@@ -54,7 +54,7 @@ declare ConID int unsigned default 0;
 declare StuID int unsigned default 0;
 
 insert into Parents (FirstName, LastName, FirstName2, LastName2, Email, Phone1, Phone2, Phone3, CheckEmail, Address, City, State, ZipCode, Hobbies)
-values (PFName, PLName, PFName2, PFName2, PEmail, Phone1, Phone2, Phone3, CheckEmail, Address, City, State, ZipCode, Hobbies);
+values (PFName, PLName, PFName2, PLName2, PEmail, Phone1, Phone2, Phone3, CheckEmail, Address, City, State, ZipCode, Hobbies);
 
 set ParID = last_insert_id();
 
