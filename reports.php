@@ -235,7 +235,7 @@ else if ($variables['report'] == 'Waitlist3Day')
             Years Desired:
           </div>
           <div class='col-xs-2'>
-            Years Desired:
+            Date Added:
           </div>
         </div>
   <?php
